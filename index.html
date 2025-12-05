@@ -4,48 +4,136 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Gradient Analytics & Research LLC</title>
-  <style>
-    body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #f6f6f6; color: #222; }
-    header { background: #1D3557; color: white; padding: 40px 20px; text-align: center; }
-    section { max-width: 900px; margin: auto; padding: 25px; }
-    h2 { color: #1D3557; margin-top: 40px; }
-    footer { text-align: center; padding: 20px; background: #eee; margin-top: 50px; }
-    ul { line-height: 1.7; }
-  </style>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-<header>
-  <h1>Gradient Analytics & Research LLC</h1>
-  <p>Data Science • Agriculture • Microbiology • Forecasting</p>
+<header class="site-header">
+  <div class="container">
+    <h1>Gradient Analytics & Research LLC</h1>
+    <p>Environmental and agricultural analytics & research, from leaf to landscape.</p>
+  </div>
 </header>
 
-<section>
-  <h2>About</h2>
-  <p>
-    Gradient Analytics & Research LLC is a quantitative agriculture and data science consultancy based in Missoula, Montana.
-    We help growers, agronomists, and agriculture companies transform complex datasets into actionable insights.
-  </p>
-</section>
+<nav>
+  <div class="container">
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="services.html">Services</a>
+      <a href="sectors.html">Who We Serve</a>
+      <a href="approach.html">Approach</a>
+      <a href="projects.html">Experience</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </div>
+</nav>
 
-<section>
-  <h2>Services</h2>
-  <ul>
-    <li>Microbial community analysis (Biome Makers, ITS/16S)</li>
-    <li>Plant & soil statistical modeling (mixed models, ANOVA, logRR)</li>
-    <li>Climate and pest survival forecasting (GEE, CMIP6, ERA5)</li>
-    <li>Field trial analytics and experimental design</li>
-    <li>GIS, spatial modeling, and remote sensing</li>
-  </ul>
-</section>
+<main>
+  <section class="hero">
+    <div class="container hero-layout">
+      <div>
+        <span class="tagline-pill">Analytics & Research</span>
+        <h2>Quantitative insight for vegetation, soils, and climate.</h2>
+        <p class="lead">
+          Gradient helps agriculture, biotech, and environmental teams make sense of complex data:
+          vegetation response, microbial communities, fumigants and fungicides, and climate and
+          geospatial context.
+        </p>
+        <p>
+          From plot-level trials to regional species distributions, we bridge ecophysiology,
+          statistics, and spatial modeling to support better products, better management,
+          and better science.
+        </p>
+        <p>
+          <a class="btn-primary" href="services.html">Explore our services</a>
+        </p>
+      </div>
+      <div class="hero-highlights">
+        <strong>What we work on:</strong>
+        <ul>
+          <li>Vegetation and crop response to fumigants, fungicides, and pesticides</li>
+          <li>Soil and microbiome metrics linked to plant performance</li>
+          <li>Climate and pest survival modeling across landscapes</li>
+          <li>Experimental design, structural equation models, and publication-ready results</li>
+        </ul>
+      </div>
+    </div>
+  </section>
 
-<section>
-  <h2>Contact</h2>
-  <p>Email: <a href="mailto:admin@gradient-analytics.com">admin@gradient-analytics.com</a></p>
-</section>
+  <section class="section">
+    <div class="container">
+      <h2>Core capabilities</h2>
+      <div class="pillars">
+        <div class="card">
+          <h3>Field & Vegetation Analytics</h3>
+          <p>
+            Design and analysis of field, greenhouse, and common garden trials, with a focus on
+            plant performance, physiology, and vegetation dynamics across treatments and environments.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Microbial & Soil Systems</h3>
+          <p>
+            Interpretation of microbiome and soil function data (e.g., vendor platforms such as
+            Biome Makers), connecting belowground metrics to crop and vegetation outcomes.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Climate & Geospatial Modeling</h3>
+          <p>
+            Integration of weather, climate projections, and spatial data to understand pest
+            survival, disease risk, and species distributions from field sites to continental scales.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Decision & Publication Support</h3>
+          <p>
+            Technical reports, structural equation models, and manuscript-quality figures
+            that clarify mechanisms, support internal decisions, and prepare work for peer review.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container columns-2">
+      <div>
+        <h2>From messy data to clear decisions</h2>
+        <p>
+          Gradient specializes in projects where the data are real-world, imperfect, and multi-scale:
+          multiple sites, timepoints, chemistries, and outcomes, often stitched together from
+          different sources.
+        </p>
+        <p>
+          We focus on effect sizes, uncertainty, and mechanisms — not just p-values — so that
+          vegetation, soil, and climate responses can be interpreted in biological and operational terms.
+        </p>
+      </div>
+      <div>
+        <h2>From leaf traits to landscape patterns</h2>
+        <p>
+          Our background spans ecophysiology, forestry, and agronomy, enabling analyses that link
+          leaf-level processes and plant traits to plot-level yields and regional distributions.
+        </p>
+        <p>
+          Whether you are testing a new fumigant program, evaluating a microbial product, or asking how
+          climate conditions reshape vegetation performance, we help connect the dots.
+        </p>
+      </div>
+    </div>
+  </section>
+</main>
 
 <footer>
-  © 2025 Gradient Analytics & Research LLC
+  <div class="container">
+    <div>© 2025 Gradient Analytics & Research LLC</div>
+    <div class="footer-emails">
+      Project inquiries: <a href="mailto:jeff@gradient-analytics.com">jeff@gradient-analytics.com</a> ·
+      General contact: <a href="mailto:admin@gradient-analytics.com">admin@gradient-analytics.com</a>
+    </div>
+  </div>
 </footer>
 
 </body>
