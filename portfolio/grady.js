@@ -1,37 +1,40 @@
-// Use the RAG endpoint so Grady can reference the PDFs
+// URL of your Cloudflare Worker RAG endpoint
 const WORKER_URL = "https://grady-worker.round-hill-0906.workers.dev/rag";
 
 const chatLog = document.getElementById("chat-log");
 const input = document.getElementById("chat-input");
 const send = document.getElementById("chat-send");
 
-// For the /rag endpoint, we send { question: "..." }
-// No message history needed — it's stateless RAG Q&A
-send.onclick = async () => {
-  const userText = input.value.trim();
-  if (!userText) return;
+async function sendMessage() {
+  const text = input.value.trim();
+  if (!text) return;
 
-  chatLog.innerHTML += `YOU: ${userText}\n`;
+  // Show user message
+  chatLog.innerHTML += `YOU: ${text}\n`;
   chatLog.scrollTop = chatLog.scrollHeight;
-
   input.value = "";
 
-  const res = await fetch(WORKER_URL, {
+  // Send to worker
+  const response = await fetch(WORKER_URL, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ question: userText })
+    body: JSON.stringify({ question: text })
   });
 
   let data;
   try {
-    data = await res.json();
+    data = await response.json();
   } catch (err) {
-    chatLog.innerHTML += `\nERROR: Could not parse reply.\n`;
+    chatLog.innerHTML += "\nERROR: Invalid response.\n";
     return;
   }
 
-  const reply = data?.choices?.[0]?.message?.content || "[No reply received]";
-
+  const reply = data?.choices?.[0]?.message?.content ?? "[No reply]";
   chatLog.innerHTML += `GRADY: ${reply}\n\n`;
   chatLog.scrollTop = chatLog.scrollHeight;
-};
+}
+
+send.onclick = sendMessage;
+input.addEventListener("keydown", e => {
+  if (e.key === "Enter") sendMessage();
+});
