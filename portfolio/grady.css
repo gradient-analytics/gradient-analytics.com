@@ -1,44 +1,41 @@
 body {
-  background: #111;
-  color: #eee;
-  font-family: Arial, sans-serif;
-  display: flex;
-  justify-content: center;
-  padding: 40px;
+    margin: 0;
+    background: #111;
+    color: white;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    padding-top: 40px;
 }
 
-#chat-container {
-  width: 600px;
-  background: #1a1a1a;
-  border: 1px solid #333;
-  padding: 20px;
-  border-radius: 8px;
+#grady-container {
+    width: 800px;
 }
 
-#chat-log {
-  height: 400px;
-  overflow-y: auto;
-  background: #000;
-  padding: 10px;
-  border-radius: 5px;
-  margin-bottom: 15px;
-  white-space: pre-wrap;
+textarea {
+    width: 100%;
+    height: 400px;
+    background: #222;
+    color: #eee;
+    padding: 10px;
+    font-size: 16px;
+    resize: none;
 }
 
-#input-row {
-  display: flex;
-  gap: 10px;
+#grady-controls {
+    display: flex;
+    margin-top: 10px;
 }
 
-#chat-input {
-  flex: 1;
-  padding: 10px;
-  background: #222;
-  border: 1px solid #444;
-  color: #eee;
+#grady-input {
+    flex: 1;
+    font-size: 16px;
+    padding: 8px;
 }
 
-#chat-send {
-  padding: 10px 20px;
-  cursor: pointer;
+#grady-send {
+    padding: 8px 16px;
+    margin-left: 8px;
+    font-size: 16px;
+    cursor: pointer;
 }
