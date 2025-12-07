@@ -1,24 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Grady AI Assistant</title>
-
-  <link rel="stylesheet" href="grady.css" />
+    <meta charset="UTF-8">
+    <title>Grady Assistant</title>
+    <link rel="stylesheet" href="grady.css">
 </head>
 <body>
 
-  <div id="chat-container">
-    <h2>Grady — Agronomy & Analytics Assistant</h2>
-    <div id="chat-log"></div>
+<div id="grady-container">
+    <h1>Grady — Agronomy & Analytics Assistant</h1>
 
-    <div id="input-row">
-      <input id="chat-input" type="text" placeholder="Ask Grady anything..." />
-      <button id="chat-send">Send</button>
+    <textarea id="grady-output" readonly></textarea>
+
+    <div id="grady-controls">
+        <input id="grady-input" type="text" placeholder="Ask Grady anything...">
+        <button id="grady-send">Send</button>
     </div>
-  </div>
+</div>
 
-  <script src="grady.js"></script>
+<script src="grady.js"></script>
 </body>
 </html>
