@@ -273,6 +273,7 @@
 
     const res = await fetch("https://grady-worker.round-hill-0906.workers.dev", {
       method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ question: text })
     });
 
