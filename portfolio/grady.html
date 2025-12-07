@@ -2,78 +2,23 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Grady — AI Knowledge Assistant</title>
-  <link rel="stylesheet" href="../style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Grady AI Assistant</title>
 
-  <style>
-    /* Chat container */
-    #chat-container {
-      width: 100%;
-      max-width: 700px;
-      margin: 40px auto;
-      background: #1e1e1e;
-      padding: 20px;
-      border-radius: 10px;
-      border: 1px solid #444;
-      color: #eee;
-    }
-
-    #chat-log {
-      height: 400px;
-      background: #111;
-      padding: 12px;
-      border-radius: 6px;
-      overflow-y: auto;
-      white-space: pre-wrap;
-      font-size: 0.95rem;
-      margin-bottom: 12px;
-    }
-
-    #chat-input {
-      width: 78%;
-      padding: 10px;
-      background: #222;
-      border: 1px solid #555;
-      border-radius: 6px;
-      color: #eee;
-      font-size: 0.95rem;
-    }
-
-    #chat-send {
-      width: 20%;
-      padding: 10px;
-      margin-left: 2%;
-      background: #3b82f6;
-      color: #fff;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 0.95rem;
-      font-weight: 600;
-    }
-
-    #chat-send:hover {
-      background: #1e56d8;
-    }
-  </style>
-
+  <link rel="stylesheet" href="grady.css" />
 </head>
-
 <body>
 
-<div class="container">
-  <h1>Grady — AI Knowledge Assistant</h1>
-  <p>This demo shows Grady answering questions based on four technical PDFs using Retrieval-Augmented Generation (RAG).</p>
-</div>
+  <div id="chat-container">
+    <h2>Grady — Agronomy & Analytics Assistant</h2>
+    <div id="chat-log"></div>
 
-<div id="chat-container">
-  <div id="chat-log"></div>
+    <div id="input-row">
+      <input id="chat-input" type="text" placeholder="Ask Grady anything..." />
+      <button id="chat-send">Send</button>
+    </div>
+  </div>
 
-  <input id="chat-input" type="text" placeholder="Ask Grady anything..." />
-  <button id="chat-send">Send</button>
-</div>
-
-<script src="grady.js"></script>
-
+  <script src="grady.js"></script>
 </body>
 </html>
