@@ -271,7 +271,7 @@
     addMessage(text, "user");
     input.value = "";
 
-    const res = await fetch("grady-worker.round-hill-0906.workers.dev", {
+    const res = await fetch("https://grady-worker.round-hill-0906.workers.dev", {
       method: "POST",
       body: JSON.stringify({ message: text })
     });
