@@ -22,6 +22,18 @@ textarea {
     resize: none;
 }
 
+#grady-output {
+    width: 100%;
+    height: 400px;           /* locked size */
+    resize: none;            /* ❌ disables user resizing */
+    overflow-y: auto;        /* smooth scrolling */
+    background: #0f0f0f;
+    color: #fff;
+    padding: 10px;
+    border-radius: 6px;
+    font-family: monospace;
+}
+
 #grady-controls {
     display: flex;
     margin-top: 10px;
