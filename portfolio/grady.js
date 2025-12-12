@@ -1,6 +1,24 @@
-const WORKER_URL = "https://grady-worker.round-hill-0906.workers.dev/rag";
+const WORKER_URL = "https://grady-worker.round-hill-0906.workers.dev/grady";
 
-async function askGrady(question) {
+const chatWindow = document.getElementById("chat-window");
+const chatInput = document.getElementById("chat-input");
+const sendBtn = document.getElementById("send-btn");
+
+function addMessage(text, sender) {
+    const div = document.createElement("div");
+    div.className = "message " + sender;
+    div.textContent = text;
+    chatWindow.appendChild(div);
+    chatWindow.scrollTop = chatWindow.scrollHeight;
+}
+
+async function sendMessage() {
+    const question = chatInput.value.trim();
+    if (!question) return;
+
+    addMessage(question, "user");
+    chatInput.value = "";
+
     try {
         const res = await fetch(WORKER_URL, {
             method: "POST",
@@ -8,45 +26,16 @@ async function askGrady(question) {
             body: JSON.stringify({ question })
         });
 
-        if (!res.ok) {
-            return `Worker error: ${res.status}`;
-        }
-
         const data = await res.json();
-
-        if (data?.choices?.[0]?.message?.content) {
-            return data.choices[0].message.content;
-        }
-
-        return "Unexpected worker response:\n" + JSON.stringify(data, null, 2);
+        addMessage(data.answer, "grady");
 
     } catch (err) {
-        return "Network error:\n" + err.message;
+        addMessage("Error contacting Grady.", "grady");
+        console.error(err);
     }
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-    console.log("Grady loaded.");
-
-    const input = document.getElementById("grady-input");
-    const output = document.getElementById("grady-output");
-    const button = document.getElementById("grady-send");
-
-    if (!input || !output || !button) {
-        console.error("Missing DOM elements. Check HTML IDs.");
-        return;
-    }
-
-    button.addEventListener("click", async () => {
-        const q = input.value.trim();
-        if (!q) return;
-
-        output.value += `You: ${q}\n`;
-        input.value = "";
-
-        const answer = await askGrady(q);
-
-        output.value += `Grady: ${answer}\n\n`;
-        output.scrollTop = output.scrollHeight;
-    });
+sendBtn.addEventListener("click", sendMessage);
+chatInput.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") sendMessage();
 });
