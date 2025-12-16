@@ -54,14 +54,6 @@ body {
   text-align: left;
 }
 
-/* slider + labels group */
-.grady-slider-group {
-  display: flex;
-  align-items: center;
-  position: relative;
-  margin-top: 28px;
-}
-
 /* vertical slider */
 .grady-slider-vertical {
   position: absolute;
