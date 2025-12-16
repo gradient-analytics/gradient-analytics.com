@@ -61,7 +61,7 @@ body {
 .grady-slider-group {
   display: grid;
   grid-template-columns: 28px auto;
-  column-gap: 12px;
+  column-gap: 16px;
   margin-top: 40px;
   align-items: center;
 }
