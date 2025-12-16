@@ -6,6 +6,13 @@ body {
     font-family: Arial, sans-serif;
 }
 
+/* Intro text above Grady */
+.grady-intro {
+    color: #000;
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
 .chat-container {
     width: 100%;
     max-width: 900px;
