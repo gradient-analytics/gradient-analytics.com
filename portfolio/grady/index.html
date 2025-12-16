@@ -81,27 +81,49 @@
 
     </div>
 
-    <!-- RIGHT: Slider (UI only for now) -->
-    <div class="grady-controls">
-      <label for="rag-strength">
-        Source grounding
-      </label>
-      <input
-        type="range"
-        id="rag-strength"
-        min="0"
-        max="4"
-        step="1"
-        value="3"
-      />
-      <div class="rag-labels">
-        <span>Generic</span>
-        <span>Hybrid</span>
-        <span>Repo-only</span>
-      </div>
-    </div>
+    <!-- RIGHT: Test questions + controls -->
+<div class="grady-controls">
 
+  <div class="grady-help">
+    <strong>To try Grady</strong>
+    <p>
+      Enter a question into the chat box, or select a test question below:
+    </p>
   </div>
+
+  <div class="grady-test-questions">
+    <button data-q="What do the documents say about the effects of soil fumigation on fungi and mycorrhizal communities?">
+      What do the documents say about fumigation and fungi?
+    </button>
+
+    <button data-q="What tradeoffs do the documents describe between pathogen control and broader soil health?">
+      What tradeoffs exist between pathogen control and soil health?
+    </button>
+
+    <button data-q="Which microbial groups are most consistently affected by fumigation?">
+      Which microbial groups are most affected by fumigation?
+    </button>
+  </div>
+
+  <!-- Slider stays here, under questions -->
+  <div class="grady-slider">
+    <label for="rag-strength">Source grounding</label>
+    <input
+      type="range"
+      id="rag-strength"
+      min="0"
+      max="4"
+      step="1"
+      value="3"
+    />
+    <div class="rag-labels">
+      <span>Generic</span>
+      <span>Hybrid</span>
+      <span>Repo-only</span>
+    </div>
+  </div>
+</div>
+
 </section>
 
 </main>
