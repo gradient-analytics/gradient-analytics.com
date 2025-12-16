@@ -29,18 +29,18 @@ body {
 }
 
 /* Explicit column placement */
-.  { grid-column: 1; }
+.grady-left  { grid-column: 1; }
 .grady-chat  { grid-column: 2; }
 .grady-right { grid-column: 3; }
 
 /* =========================================================
-   LEFT COLUMN — SOURCE GROUNDING SLIDER
+   LEFT COLUMN — SOURCE GROUNDING
    ========================================================= */
 
 .grady-left {
   display: flex;
   flex-direction: column;
-  align-items: flex-start; /* aligns with chat box */
+  align-items: flex-start;
   color: #111;
 }
 
@@ -54,12 +54,24 @@ body {
   text-align: left;
 }
 
+/* =========================================================
+   SLIDER + LABELS (STABLE GRID-BASED LAYOUT)
+   ========================================================= */
+
+.grady-slider-group {
+  display: grid;
+  grid-template-columns: 28px auto;
+  column-gap: 12px;
+  margin-top: 24px;
+  align-items: center;
+}
+
 /* vertical slider */
 .grady-slider-vertical {
   -webkit-appearance: none;
   appearance: none;
-  width: 200px;
-  height: 28px;
+  width: 180px;
+  height: 24px;
   transform: rotate(-90deg);
 }
 
@@ -78,12 +90,12 @@ body {
 /* WebKit thumb */
 .grady-slider-vertical::-webkit-slider-thumb {
   -webkit-appearance: none;
-  width: 18px;
-  height: 18px;
+  width: 16px;
+  height: 16px;
   background: #ffffff;
   border: 3px solid #1e3a8a;
   border-radius: 50%;
-  margin-top: -6px;
+  margin-top: -5px;
   cursor: pointer;
 }
 
@@ -101,8 +113,8 @@ body {
 
 /* Firefox thumb */
 .grady-slider-vertical::-moz-range-thumb {
-  width: 18px;
-  height: 18px;
+  width: 16px;
+  height: 16px;
   background: #ffffff;
   border: 3px solid #1e3a8a;
   border-radius: 50%;
@@ -111,20 +123,14 @@ body {
 
 /* labels */
 .rag-labels-vertical {
-  position: absolute;
-  left: 28px;          /* THIS is the final knob */
-  top: 0;
-
-  height: 200px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-
+  height: 180px;
   font-size: 0.85rem;
   line-height: 1.2;
 }
 
-/* label colors */
 .label-generic { color: #6b7280; }
 .label-hybrid  { color: #3b82f6; font-weight: 600; }
 .label-repo    { color: #1e3a8a; font-weight: 600; }
@@ -240,11 +246,3 @@ body {
 .grady-test-questions button:hover {
   background: #e6edf5;
 }
-
-/* visual nudge for rotated range input */
-.grady-slider-group {
-  position: relative;
-  margin-top: 48px;
-}
-
-
