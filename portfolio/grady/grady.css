@@ -71,7 +71,7 @@ body {
 .grady-slider-vertical {
   -webkit-appearance: none;
   appearance: none;
-  width: 180px;
+  width: 160px;
   height: 24px;
   transform: rotate(-90deg);
   justify-self: left;
