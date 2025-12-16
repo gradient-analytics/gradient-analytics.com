@@ -19,6 +19,14 @@ async function sendMessage() {
     addMessage(question, "user");
     chatInput.value = "";
 
+    // ---- loading message ----
+    const loadingDiv = document.createElement("div");
+    loadingDiv.className = "message grady loading";
+    loadingDiv.textContent = "Grady is reviewing relevant documents…";
+    chatWindow.appendChild(loadingDiv);
+    chatWindow.scrollTop = chatWindow.scrollHeight;
+    // -------------------------
+
     try {
         const res = await fetch(WORKER_URL, {
             method: "POST",
@@ -27,13 +35,22 @@ async function sendMessage() {
         });
 
         const data = await res.json();
+
+        // remove loading message
+        loadingDiv.remove();
+
         addMessage(data.answer, "grady");
 
     } catch (err) {
-        addMessage("Error contacting Grady.", "grady");
+        loadingDiv.remove();
+        addMessage(
+          "Grady couldn’t retrieve documents right now. Please try again.",
+          "grady"
+        );
         console.error(err);
     }
 }
+
 
 sendBtn.addEventListener("click", sendMessage);
 chatInput.addEventListener("keydown", (e) => {
