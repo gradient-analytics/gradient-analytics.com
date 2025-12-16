@@ -39,7 +39,7 @@ body {
 .grady-left {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start; /* IMPORTANT */
   color: #111;
 }
 
