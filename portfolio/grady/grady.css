@@ -1,3 +1,7 @@
+/* =========================================================
+   BASE
+   ========================================================= */
+
 body {
     margin: 0;
     padding: 0;
@@ -13,43 +17,74 @@ body {
     line-height: 1.6;
 }
 
-.grady-prompts {
-  margin-bottom: 1rem;
-  display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-  align-items: center;
+
+/* =========================================================
+   LAYOUT (NEW)
+   ========================================================= */
+
+.grady-layout {
+    display: grid;
+    grid-template-columns: 160px minmax(520px, 640px) 260px;
+    gap: 30px;
+    align-items: start;
 }
 
-.grady-prompts button {
-  background: #f0f4f8;
-  border: 1px solid #ccd6e0;
-  border-radius: 4px;
-  padding: 0.35rem 0.6rem;
-  cursor: pointer;
-  font-size: 0.85rem;
+/* LEFT COLUMN — slider + explanation */
+.grady-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.85rem;
+    color: #444;
 }
 
-.grady-prompts button:hover {
-  background: #e6edf5;
+.grady-slider-explainer p {
+    margin: 6px 0 12px;
+    line-height: 1.4;
 }
+
+/* vertical slider */
+.grady-slider-vertical {
+    writing-mode: bt-lr;
+    -webkit-appearance: slider-vertical;
+    height: 180px;
+}
+
+/* slider labels */
+.rag-labels-vertical {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 0.75rem;
+    color: #666;
+}
+
+
+/* CENTER COLUMN — chat */
+.grady-chat {
+    display: flex;
+    justify-content: center;
+}
+
+
+/* =========================================================
+   CHAT (MODIFIED)
+   ========================================================= */
 
 .chat-container {
     width: 100%;
-    max-width: 800px;   /* narrower than before */
-    margin: 20px auto;  /* less vertical spacing */
+    max-width: 640px;        /* narrower */
+    margin: 0;              /* IMPORTANT: remove auto-centering */
     padding: 16px;
     background: #1b1b1b;
     border-radius: 12px;
     box-shadow: 0 0 20px rgba(0,0,0,0.5);
 }
 
-.chat-header {
-    margin-bottom: 20px;
-}
-
 .chat-window {
-    height: 360px;      /* much less tall */
+    height: 360px;          /* shorter */
+    max-height: 360px;
     overflow-y: auto;
     padding: 14px;
     background: #0f0f0f;
@@ -70,6 +105,11 @@ body {
 
 .message.grady {
     color: #7dfc9e;
+}
+
+.message.loading {
+    font-style: italic;
+    opacity: 0.7;
 }
 
 .input-row {
@@ -101,8 +141,64 @@ body {
     background: #1a72ff;
 }
 
-.message.loading {
-  font-style: italic;
-  opacity: 0.7;
+
+/* =========================================================
+   RIGHT COLUMN — QUESTIONS (NEW)
+   ========================================================= */
+
+.grady-right {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
 }
 
+.grady-help p {
+    margin: 6px 0 12px;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.grady-test-questions button {
+    display: block;
+    width: 100%;
+    margin-bottom: 8px;
+    padding: 8px 10px;
+    font-size: 0.85rem;
+    background: #f5f7fa;
+    border: 1px solid #ccd6e0;
+    border-radius: 6px;
+    cursor: pointer;
+    text-align: left;
+}
+
+.grady-test-questions button:hover {
+    background: #e6edf5;
+}
+
+
+/* =========================================================
+   SAFE TO REMOVE (obsolete)
+   ========================================================= */
+
+/*
+.grady-prompts {
+  margin-bottom: 1rem;
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.grady-prompts button {
+  background: #f0f4f8;
+  border: 1px solid #ccd6e0;
+  border-radius: 4px;
+  padding: 0.35rem 0.6rem;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.grady-prompts button:hover {
+  background: #e6edf5;
+}
+*/
