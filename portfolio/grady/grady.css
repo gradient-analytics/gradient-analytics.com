@@ -244,3 +244,9 @@ body {
 .grady-test-questions button:hover {
   background: #e6edf5;
 }
+
+/* visual nudge for rotated range input */
+.grady-slider-group {
+  padding-left: 8px;
+}
+
