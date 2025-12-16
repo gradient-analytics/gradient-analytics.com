@@ -42,7 +42,6 @@ body {
   flex-direction: column;
   align-items: flex-start; /* aligns with chat box */
   color: #111;
-  padding-top: 40px; 
 }
 
 .grady-slider-explainer {
@@ -57,16 +56,11 @@ body {
 
 /* vertical slider */
 .grady-slider-vertical {
-  position: absolute;
-  left: 0;
-  top: 0;
-
   -webkit-appearance: none;
   appearance: none;
   width: 200px;
   height: 28px;
   transform: rotate(-90deg);
-  transform-origin: top left;
 }
 
 /* WebKit track */
@@ -250,9 +244,7 @@ body {
 /* visual nudge for rotated range input */
 .grady-slider-group {
   position: relative;
-  width: 60px;        /* tight visual footprint */
-  height: 200px;      /* matches slider height */
-  margin-top: 72px;
+  margin-top: 48px;
 }
 
 
