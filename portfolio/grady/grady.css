@@ -54,7 +54,10 @@ body {
   appearance: none;
   width: 220px;
   height: 28px;
-  transform: rotate(-90deg);
+  /* rotate AND shift down */
+  transform: rotate(-90deg) translateY(60px);
+  /* prevents layout weirdness */
+  transform-origin: center;
 }
 
 .grady-slider-explainer {
