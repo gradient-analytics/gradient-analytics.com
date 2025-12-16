@@ -49,9 +49,25 @@
   <section class="section">
     <div class="container">
 
+      
+      <!-- Try asking prompts -->
+      <div class="grady-prompts">
+        <strong>Try asking:</strong>
+        <button data-q="What do the documents say about the effects of soil fumigation on fungi and mycorrhizal communities?">
+          Fumigation & fungi
+        </button>
+        <button data-q="What tradeoffs do the documents describe between pathogen control and broader soil health?">
+          Pathogen control vs soil health
+        </button>
+        <button data-q="Which microbial groups are most consistently affected by fumigation?">
+          Microbial groups affected
+        </button>
+      </div>
+
+      <!-- Chat UI -->
       <div class="chat-container">
         <div id="chat-window" class="chat-window"></div>
-
+    
         <div class="input-row">
           <input
             id="chat-input"
@@ -61,7 +77,7 @@
           <button id="send-btn">Send</button>
         </div>
       </div>
-
+    
     </div>
   </section>
 
