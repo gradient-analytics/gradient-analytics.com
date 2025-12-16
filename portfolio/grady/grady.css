@@ -23,48 +23,66 @@ body {
    ========================================================= */
 
 .grady-layout {
+  display: grid;
   grid-template-columns: 180px minmax(520px, 700px) 320px;
+  gap: 24px;
+  align-items: start;
 }
 
 /* LEFT COLUMN — slider + explanation */
 .grady-left {
-  color: #111;          /* was gray */
-}
-.grady-slider-explainer p,
-.rag-labels-vertical {
-  color: #333;          /* readable */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #111;
 }
 
+.grady-slider-explainer strong,
 .grady-slider-explainer p {
-    margin: 6px 0 12px;
-    line-height: 1.4;
+  color: #000;              /* force readable */
 }
 
 /* vertical slider */
 .grady-slider-vertical {
-  width: 28px;
-  height: 220px;
-  transform: rotate(-90deg);   /* reliable */
-  margin-top: 40px;
+  -webkit-appearance: none;
+  appearance: none;
+  width: 220px;
+  height: 28px;
+  transform: rotate(-90deg);
+  margin: 40px 0;
 }
 
+.grady-slider-vertical::-webkit-slider-runnable-track {
+  height: 6px;
+  background: #cfd8e3;
+  border-radius: 4px;
+}
+
+.grady-slider-vertical::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  background: #005eff;
+  border-radius: 50%;
+  margin-top: -6px;
+  cursor: pointer;
+}
 
 /* slider labels */
 .rag-labels-vertical {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    font-size: 0.75rem;
-    color: #666;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: #000;
+  text-align: center;
 }
-
 
 /* CENTER COLUMN — chat */
 .grady-chat {
     display: flex;
     justify-content: center;
 }
-
 
 /* =========================================================
    CHAT (MODIFIED)
@@ -153,7 +171,11 @@ body {
 .grady-help p {
     margin: 6px 0 12px;
     font-size: 0.9rem;
-    color: #555;
+}
+
+.grady-help strong,
+.grady-help p {
+  color: #000;
 }
 
 .grady-test-questions button {
