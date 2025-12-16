@@ -66,7 +66,11 @@ body {
 
 .grady-slider-vertical::-webkit-slider-runnable-track {
   height: 6px;
-  background: #cfd8e3;
+    background: linear-gradient(
+    to right,
+    #444,
+    #777
+  );
   border-radius: 4px;
 }
 
@@ -74,8 +78,10 @@ body {
   -webkit-appearance: none;
   width: 18px;
   height: 18px;
-  background: #005eff;
+  background: #111;
+  border: 2px solid #888;
   border-radius: 50%;
+  border-color: #005eff;
   margin-top: -6px;
   cursor: pointer;
 }
@@ -89,7 +95,7 @@ body {
   font-size: 0.85rem;
   color: #000;
   text-align: center;
-  margin-top: 10px;
+  margin-top: 40px;
 }
 
 /* CENTER COLUMN — chat */
