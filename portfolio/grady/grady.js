@@ -39,3 +39,10 @@ sendBtn.addEventListener("click", sendMessage);
 chatInput.addEventListener("keydown", (e) => {
     if (e.key === "Enter") sendMessage();
 });
+
+document.querySelectorAll(".grady-prompts button").forEach(btn => {
+  btn.addEventListener("click", () => {
+    chatInput.value = btn.dataset.q;
+    sendMessage();
+  });
+});
