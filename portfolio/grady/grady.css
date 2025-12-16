@@ -62,7 +62,7 @@ body {
   display: grid;
   grid-template-columns: 180px auto;
   column-gap: 12px;
-  margin-left: 0px;
+  margin-left: 8px;
   margin-top: 40px;
   align-items: center;
 }
