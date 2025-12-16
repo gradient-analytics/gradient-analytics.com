@@ -51,77 +51,78 @@
 
   <!-- Grady UI -->
   <section class="section">
-    <div class="container grady-layout">
+  <div class="container grady-layout">
 
-      <!-- LEFT: Source grounding -->
-      <aside class="grady-left">
-        <div class="grady-slider-explainer">
-          <strong>Source grounding</strong>
-          <p>
-            Grady can be set to answer using only repository documents,
-            or to leverage general AI knowledge.
-          </p>
-        </div>
-
-        <input
-          type="range"
-          id="rag-strength"
-          class="grady-slider-vertical"
-          min="0"
-          max="2"
-          step="1"
-          value="1"
-        />
-
-        <div class="rag-labels-vertical">
-          <span>Generic</span>
-          <span>Hybrid</span>
-          <span>Repo-only</span>
-        </div>
-      </aside>
-
-      <!-- CENTER: Chat -->
-      <div class="grady-chat">
-        <div class="chat-container">
-          <div id="chat-window" class="chat-window"></div>
-
-          <div class="input-row">
-            <input
-              id="chat-input"
-              type="text"
-              placeholder="Ask Grady a question..."
-            />
-            <button id="send-btn">Send</button>
-          </div>
-        </div>
+    <!-- LEFT: Slider -->
+    <aside class="grady-left">
+      <div class="grady-slider-explainer">
+        <strong>Source grounding</strong>
+        <p>
+          Grady can be restricted to repository documents only,
+          or allowed to use general AI knowledge.
+        </p>
       </div>
 
-      <!-- RIGHT: Test questions -->
-      <aside class="grady-right">
-        <div class="grady-help">
-          <strong>Try Grady</strong>
-          <p>
-            Enter a question in the chat box, or click a test question:
-          </p>
+      <input
+        type="range"
+        id="rag-strength"
+        min="0"
+        max="2"
+        step="1"
+        value="1"
+        class="grady-slider-vertical"
+      />
+
+      <div class="rag-labels-vertical">
+        <span>Generic</span>
+        <span>Hybrid</span>
+        <span>Repo-only</span>
+      </div>
+    </aside>
+
+    <!-- CENTER: Chat -->
+    <div class="grady-chat">
+      <div class="chat-container">
+        <div id="chat-window" class="chat-window"></div>
+
+        <div class="input-row">
+          <input
+            id="chat-input"
+            type="text"
+            placeholder="Ask Grady a question..."
+          />
+          <button id="send-btn">Send</button>
         </div>
-
-        <div class="grady-test-questions">
-          <button data-q="What do the documents say about the effects of soil fumigation on fungi and mycorrhizal communities?">
-            What do the documents say about fumigation and fungi?
-          </button>
-
-          <button data-q="What tradeoffs do the documents describe between pathogen control and broader soil health?">
-            What tradeoffs exist between pathogen control and soil health?
-          </button>
-
-          <button data-q="Which microbial groups are most consistently affected by fumigation?">
-            Which microbial groups are most affected by fumigation?
-          </button>
-        </div>
-      </aside>
-
+      </div>
     </div>
-  </section>
+
+    <!-- RIGHT: Questions -->
+    <aside class="grady-right">
+      <div class="grady-help">
+        <strong>Try Grady</strong>
+        <p>
+          Enter a question in the chat box, or click a test question:
+        </p>
+      </div>
+
+      <div class="grady-test-questions">
+        <button data-q="What do the documents say about the effects of soil fumigation on fungi and mycorrhizal communities?">
+          What do the documents say about fumigation and fungi?
+        </button>
+
+        <button data-q="What tradeoffs do the documents describe between pathogen control and broader soil health?">
+          What tradeoffs exist between pathogen control and soil health?
+        </button>
+
+        <button data-q="Which microbial groups are most consistently affected by fumigation?">
+          Which microbial groups are most affected by fumigation?
+        </button>
+      </div>
+    </aside>
+
+  </div>
+</section>
+
 
 </main>
 
