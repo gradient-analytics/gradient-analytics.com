@@ -55,7 +55,7 @@ body {
   width: 220px;
   height: 28px;
   /* rotate AND shift down */
-  transform: rotate(-90deg) translateY(60px);
+  transform: rotate(-90deg) translateX(60px);
   /* prevents layout weirdness */
   transform-origin: center;
 }
@@ -89,6 +89,7 @@ body {
   font-size: 0.85rem;
   color: #000;
   text-align: center;
+  margin-top: 10px;
 }
 
 /* CENTER COLUMN — chat */
