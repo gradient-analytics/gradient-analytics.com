@@ -23,20 +23,16 @@ body {
    ========================================================= */
 
 .grady-layout {
-    display: grid;
-    grid-template-columns: 160px minmax(520px, 640px) 260px;
-    gap: 30px;
-    align-items: start;
+  grid-template-columns: 180px minmax(520px, 700px) 320px;
 }
 
 /* LEFT COLUMN — slider + explanation */
 .grady-left {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 12px;
-    font-size: 0.85rem;
-    color: #444;
+  color: #111;          /* was gray */
+}
+.grady-slider-explainer p,
+.rag-labels-vertical {
+  color: #333;          /* readable */
 }
 
 .grady-slider-explainer p {
@@ -46,10 +42,12 @@ body {
 
 /* vertical slider */
 .grady-slider-vertical {
-    writing-mode: bt-lr;
-    -webkit-appearance: slider-vertical;
-    height: 180px;
+  width: 28px;
+  height: 220px;
+  transform: rotate(-90deg);   /* reliable */
+  margin-top: 40px;
 }
+
 
 /* slider labels */
 .rag-labels-vertical {
