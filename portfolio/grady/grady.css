@@ -58,7 +58,7 @@ body {
 .grady-slider-group {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 5px;
   margin-top: 28px;
 }
 
