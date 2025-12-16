@@ -40,62 +40,59 @@ body {
   flex-direction: column;
   align-items: center;
   color: #111;
-  padding-top: 20px;
 }
 
+/* text */
 .grady-slider-explainer strong,
 .grady-slider-explainer p {
-  color: #000;              /* force readable */
+  color: #000;
+  text-align: center;
 }
 
-/* vertical slider */
+/* wrapper controls vertical placement */
+.grady-slider-wrapper {
+  margin-top: 32px;   /* THIS is the knob you adjust */
+  margin-bottom: 16px;
+}
+
+/* vertical slider — rotation only */
 .grady-slider-vertical {
   -webkit-appearance: none;
   appearance: none;
   width: 220px;
   height: 28px;
-  /* rotate AND shift down */
-  transform: rotate(-90deg) translateX(60px);
-  /* prevents layout weirdness */
+  transform: rotate(-90deg);
   transform-origin: center;
 }
 
-.grady-slider-explainer {
-  margin-bottom: 40px;   /* THIS moves the slider down */
-}
-
+/* track */
 .grady-slider-vertical::-webkit-slider-runnable-track {
   height: 6px;
-    background: linear-gradient(
-    to right,
-    #444,
-    #777
-  );
+  background: linear-gradient(to right, #444, #777);
   border-radius: 4px;
 }
 
+/* thumb */
 .grady-slider-vertical::-webkit-slider-thumb {
   -webkit-appearance: none;
-  width: 18px;
-  height: 18px;
+  width: 16px;
+  height: 16px;
   background: #111;
-  border: 2px solid #888;
+  border: 2px solid #005eff;
   border-radius: 50%;
-  border-color: #005eff;
-  margin-top: -6px;
+  margin-top: -5px;
   cursor: pointer;
 }
 
-/* slider labels */
+/* labels */
 .rag-labels-vertical {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;   /* KEY */
-  height: 220px;                    /* MUST match slider width */
+  justify-content: space-between;
+  height: 220px; /* matches slider width */
   font-size: 0.85rem;
   color: #000;
   text-align: center;
-  margin-top: 40px;
 }
 
 /* CENTER COLUMN — chat */
