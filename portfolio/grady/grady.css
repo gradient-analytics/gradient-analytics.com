@@ -58,7 +58,6 @@ body {
 .grady-slider-group {
   display: flex;
   align-items: center;
-  gap: 5px;
   position: relative;
   margin-top: 28px;
 }
@@ -71,7 +70,6 @@ body {
   height: 28px;
   transform: rotate(-90deg);
   transform-origin: center;
-  margin-right: 12px;
 }
 
 /* WebKit track */
@@ -250,6 +248,5 @@ body {
 
 /* visual nudge for rotated range input */
 .grady-slider-group {
-  padding-left: 8px;
 }
 
