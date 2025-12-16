@@ -64,12 +64,16 @@ body {
 
 /* vertical slider */
 .grady-slider-vertical {
+  position: absolute;
+  left: 0;
+  top: 0;
+
   -webkit-appearance: none;
   appearance: none;
   width: 200px;
   height: 28px;
   transform: rotate(-90deg);
-  transform-origin: center;
+  transform-origin: top left;
 }
 
 /* WebKit track */
@@ -120,13 +124,17 @@ body {
 
 /* labels */
 .rag-labels-vertical {
+  position: absolute;
+  left: 28px;          /* THIS is the final knob */
+  top: 0;
+
+  height: 200px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 200px;
+
   font-size: 0.85rem;
   line-height: 1.2;
-  left: 20px;
 }
 
 /* label colors */
@@ -248,5 +256,10 @@ body {
 
 /* visual nudge for rotated range input */
 .grady-slider-group {
+  position: relative;
+  width: 60px;        /* tight visual footprint */
+  height: 200px;      /* matches slider height */
+  margin-top: 28px;
 }
+
 
