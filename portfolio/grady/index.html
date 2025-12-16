@@ -4,8 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Grady | Gradient Analytics & Research LLC</title>
+
+  <!-- Shared site styles -->
   <link rel="stylesheet" href="../../style.css" />
-  <link rel="stylesheet" href="grady.css" /> <!-- optional, minimal -->
+
+  <!-- Grady-specific styles -->
+  <link rel="stylesheet" href="grady.css" />
 </head>
 
 <body>
@@ -46,85 +50,79 @@
   </section>
 
   <!-- Grady UI -->
-<section class="section">
-  <div class="container grady-layout">
+  <section class="section">
+    <div class="container grady-layout">
 
-    <!-- LEFT: Chat -->
-    <div class="grady-chat">
+      <!-- LEFT: Source grounding slider -->
+      <aside class="grady-left">
+        <div class="grady-slider-explainer">
+          <strong>Source grounding</strong>
+          <p>
+            Grady can be set to answer strictly from the internal repository,
+            or to combine repository content with general AI knowledge.
+          </p>
+        </div>
 
-      <div class="chat-container">
-        <div id="chat-window" class="chat-window"></div>
+        <input
+          type="range"
+          id="rag-strength"
+          min="0"
+          max="4"
+          step="1"
+          value="3"
+          class="grady-slider-vertical"
+          aria-label="Source grounding"
+        />
 
-        <div class="input-row">
-          <input
-            id="chat-input"
-            type="text"
-            placeholder="Ask Grady a question..."
-          />
-          <button id="send-btn">Send</button>
+        <div class="rag-labels-vertical">
+          <span>Generic</span>
+          <span>Hybrid</span>
+          <span>Repo-only</span>
+        </div>
+      </aside>
+
+      <!-- CENTER: Chat -->
+      <div class="grady-chat">
+        <div class="chat-container">
+          <div id="chat-window" class="chat-window"></div>
+
+          <div class="input-row">
+            <input
+              id="chat-input"
+              type="text"
+              placeholder="Ask Grady a question..."
+            />
+            <button id="send-btn">Send</button>
+          </div>
         </div>
       </div>
 
-      <!-- Try asking prompts (now BELOW chat) -->
-      <div class="grady-prompts">
-        <strong>Try asking:</strong>
-        <button data-q="What do the documents say about the effects of soil fumigation on fungi and mycorrhizal communities?">
-          Fumigation & fungi
-        </button>
-        <button data-q="What tradeoffs do the documents describe between pathogen control and broader soil health?">
-          Pathogen control vs soil health
-        </button>
-        <button data-q="Which microbial groups are most consistently affected by fumigation?">
-          Microbial groups affected
-        </button>
-      </div>
+      <!-- RIGHT: Example questions -->
+      <aside class="grady-right">
+        <div class="grady-help">
+          <strong>Try Grady</strong>
+          <p>
+            Ask a direct question in the chat, or select one of the example questions below.
+          </p>
+        </div>
+
+        <div class="grady-test-questions">
+          <button data-q="What do the documents say about the effects of soil fumigation on fungi and mycorrhizal communities?">
+            Effects of fumigation on fungi
+          </button>
+
+          <button data-q="What tradeoffs do the documents describe between pathogen control and broader soil health?">
+            Pathogen control vs soil health
+          </button>
+
+          <button data-q="Which microbial groups are most consistently affected by fumigation?">
+            Microbial groups affected by fumigation
+          </button>
+        </div>
+      </aside>
 
     </div>
-
-    <!-- RIGHT: Test questions + controls -->
-<div class="grady-controls">
-
-  <div class="grady-help">
-    <strong>To try Grady</strong>
-    <p>
-      Enter a question into the chat box, or select a test question below:
-    </p>
-  </div>
-
-  <div class="grady-test-questions">
-    <button data-q="What do the documents say about the effects of soil fumigation on fungi and mycorrhizal communities?">
-      What do the documents say about fumigation and fungi?
-    </button>
-
-    <button data-q="What tradeoffs do the documents describe between pathogen control and broader soil health?">
-      What tradeoffs exist between pathogen control and soil health?
-    </button>
-
-    <button data-q="Which microbial groups are most consistently affected by fumigation?">
-      Which microbial groups are most affected by fumigation?
-    </button>
-  </div>
-
-  <!-- Slider stays here, under questions -->
-  <div class="grady-slider">
-    <label for="rag-strength">Source grounding</label>
-    <input
-      type="range"
-      id="rag-strength"
-      min="0"
-      max="4"
-      step="1"
-      value="3"
-    />
-    <div class="rag-labels">
-      <span>Generic</span>
-      <span>Hybrid</span>
-      <span>Repo-only</span>
-    </div>
-  </div>
-</div>
-
-</section>
+  </section>
 
 </main>
 
