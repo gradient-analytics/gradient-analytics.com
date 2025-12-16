@@ -29,6 +29,11 @@ body {
   align-items: start;
 }
 
+/* Explicit column placement */
+.grady-left  { grid-column: 1; }
+.grady-chat  { grid-column: 2; }
+.grady-right { grid-column: 3; }
+
 /* LEFT COLUMN — slider + explanation */
 .grady-left {
   display: flex;
