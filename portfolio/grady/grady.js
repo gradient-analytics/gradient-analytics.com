@@ -35,7 +35,11 @@ function appendMessage(text, role, meta = {}) {
 
     const badge = document.createElement("div");
     badge.className = "grounding-badge";
-    badge.textContent = `${meta.grounding} · sim ${meta.similarity}`;
+    badge.textContent =
+      meta.similarity !== undefined
+    ? `${meta.grounding} · sim ${meta.similarity}`
+    : meta.grounding;
+
     msg.appendChild(badge);
   }
 
@@ -64,8 +68,8 @@ async function sendMessage() {
   const question = chatInput.value.trim();
   if (!question) return;
 
-  const level = Number(slider.value);
-
+  const level = Number(slider?.value ?? 2);
+  
   appendMessage(question, "user");
   chatInput.value = "";
 
@@ -126,13 +130,11 @@ chatInput.addEventListener("keydown", (e) => {
 document
   .querySelectorAll(".grady-test-questions button")
   .forEach(btn => {
-      btn.addEventListener("click", () => {
-        const q = btn.dataset.q;
-        if (!q) return;
-        chatInput.value = q;
-        sendMessage();
-      });
-
+    btn.addEventListener("click", () => {
+      const q = btn.dataset.q;
+      if (!q) return;
+      chatInput.value = q;
+      sendMessage();
     });
   });
 
