@@ -6,11 +6,10 @@ body {
   margin: 0;
   padding: 0;
   background: #111;
-  color: #eee;
   font-family: Arial, sans-serif;
 }
 
-/* Intro text above Grady */
+/* Intro text */
 .grady-intro {
   color: #000;
   font-size: 1rem;
@@ -18,21 +17,23 @@ body {
 }
 
 /* =========================================================
-   LAYOUT (NEW: LEFT QUESTIONS / RIGHT CHAT / BOTTOM SLIDER)
+   MAIN LAYOUT
    ========================================================= */
 
 .grady-layout {
   display: grid;
-  grid-template-columns: 340px minmax(640px, 1fr);
+  grid-template-columns: 320px 1fr;
+  grid-template-rows: auto auto;
   grid-template-areas:
     "left chat"
-    "slider slider";
-  gap: 24px;
+    ".    slider";
+  gap: 28px;
   align-items: start;
 }
 
-.grady-left  { grid-area: left; }
-.grady-chat  { grid-area: chat; }
+/* Area assignments */
+.grady-left   { grid-area: left; }
+.grady-chat   { grid-area: chat; }
 .grady-bottom { grid-area: slider; }
 
 /* =========================================================
@@ -42,7 +43,7 @@ body {
 .grady-left {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 16px;
 }
 
 .grady-help strong,
@@ -53,14 +54,11 @@ body {
 .grady-help p {
   margin: 6px 0 0;
   font-size: 0.95rem;
-  line-height: 1.4;
 }
 
 .grady-test-questions button {
-  display: block;
   width: 100%;
-  margin-bottom: 10px;
-  padding: 10px 12px;
+  padding: 12px 14px;
   font-size: 0.9rem;
   background: #f5f7fa;
   border: 1px solid #ccd6e0;
@@ -74,7 +72,7 @@ body {
 }
 
 /* =========================================================
-   RIGHT: CHAT (WIDER + TALLER)
+   RIGHT: CHAT
    ========================================================= */
 
 .grady-chat {
@@ -84,8 +82,7 @@ body {
 
 .chat-container {
   width: 100%;
-  max-width: 920px;
-  margin: 0;
+  max-width: 960px;
   padding: 16px;
   background: #1b1b1b;
   border-radius: 12px;
@@ -94,7 +91,6 @@ body {
 
 .chat-window {
   height: 520px;
-  max-height: 520px;
   overflow-y: auto;
   padding: 14px;
   background: #0f0f0f;
@@ -104,14 +100,12 @@ body {
 }
 
 .message {
-  margin-bottom: 18px;
-  line-height: 1.5;
+  margin-bottom: 16px;
   white-space: pre-wrap;
 }
 
-.message.user   { color: #6ab0ff; }
-.message.grady  { color: #7dfc9e; }
-.message.loading { font-style: italic; opacity: 0.7; }
+.message.user  { color: #6ab0ff; }
+.message.grady { color: #7dfc9e; }
 
 .input-row {
   display: flex;
@@ -125,7 +119,6 @@ body {
   border: 1px solid #333;
   background: #222;
   color: white;
-  font-size: 1rem;
 }
 
 #send-btn {
@@ -135,7 +128,6 @@ body {
   color: white;
   border-radius: 8px;
   cursor: pointer;
-  font-size: 1rem;
 }
 
 #send-btn:hover {
@@ -143,12 +135,11 @@ body {
 }
 
 /* =========================================================
-   BOTTOM: SLIDER (HORIZONTAL, NO ROTATION)
+   BOTTOM: SLIDER (UNDER CHAT ONLY)
    ========================================================= */
 
 .grady-bottom {
-  background: transparent;
-  padding-top: 6px;
+  max-width: 960px;
 }
 
 .grady-slider-explainer strong,
@@ -159,50 +150,51 @@ body {
 .grady-slider-explainer p {
   margin: 6px 0 12px;
   font-size: 0.95rem;
-  line-height: 1.4;
 }
 
 .grady-slider-row {
   background: #f5f7fa;
   border: 1px solid #ccd6e0;
   border-radius: 12px;
-  padding: 14px 16px;
+  padding: 16px;
 }
 
 .grady-slider-horizontal {
   width: 100%;
-  -webkit-appearance: none;
   appearance: none;
   height: 6px;
   border-radius: 4px;
-  background: linear-gradient(to right, #9aa3ad 0%, #5b7cff 50%, #1e3a8a 100%);
-  outline: none;
+  background: linear-gradient(
+    to right,
+    #9aa3ad 0%,
+    #5b7cff 50%,
+    #1e3a8a 100%
+  );
 }
 
 .grady-slider-horizontal::-webkit-slider-thumb {
-  -webkit-appearance: none;
+  appearance: none;
   width: 18px;
   height: 18px;
-  background: #ffffff;
+  background: #fff;
   border: 3px solid #1e3a8a;
   border-radius: 50%;
   cursor: pointer;
-  margin-top: -6px;
 }
 
 .grady-slider-horizontal::-moz-range-thumb {
   width: 18px;
   height: 18px;
-  background: #ffffff;
+  background: #fff;
   border: 3px solid #1e3a8a;
   border-radius: 50%;
   cursor: pointer;
 }
 
 .rag-labels-horizontal {
-  margin-top: 10px;
   display: flex;
   justify-content: space-between;
+  margin-top: 10px;
   font-size: 0.9rem;
 }
 
