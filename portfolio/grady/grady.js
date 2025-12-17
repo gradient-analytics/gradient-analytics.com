@@ -4,7 +4,6 @@
 
 const WORKER_URL = "/_grady/rag";
 
-// Grounding labels by slider level
 const GROUNDING_LABELS = [
   "generic",
   "light-hybrid",
@@ -37,8 +36,8 @@ function appendMessage(text, role, meta = {}) {
     badge.className = "grounding-badge";
     badge.textContent =
       meta.similarity !== undefined
-    ? `${meta.grounding} · sim ${meta.similarity}`
-    : meta.grounding;
+        ? `${meta.grounding} · sim ${meta.similarity}`
+        : meta.grounding;
 
     msg.appendChild(badge);
   }
@@ -69,7 +68,7 @@ async function sendMessage() {
   if (!question) return;
 
   const level = Number(slider?.value ?? 2);
-  
+
   appendMessage(question, "user");
   chatInput.value = "";
 
@@ -78,31 +77,19 @@ async function sendMessage() {
   try {
     const resp = await fetch(WORKER_URL, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        question,
-        level
-      })
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ question, level })
     });
 
-    if (!resp.ok) {
-      throw new Error(`HTTP ${resp.status}`);
-    }
+    if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
 
     const data = await resp.json();
-
     loadingMsg.remove();
 
-    appendMessage(
-      data.answer,
-      "grady",
-      {
-        grounding: data.grounding,
-        similarity: data.similarity
-      }
-    );
+    appendMessage(data.answer, "grady", {
+      grounding: data.grounding,
+      similarity: data.similarity
+    });
 
   } catch (err) {
     loadingMsg.remove();
@@ -118,15 +105,12 @@ async function sendMessage() {
 // EVENT WIRING
 // ======================================================
 
-// Send button
 sendBtn.addEventListener("click", sendMessage);
 
-// Enter key
 chatInput.addEventListener("keydown", (e) => {
   if (e.key === "Enter") sendMessage();
 });
 
-// Pre-formed question buttons
 document
   .querySelectorAll(".grady-test-questions button")
   .forEach(btn => {
@@ -138,11 +122,7 @@ document
     });
   });
 
-// ======================================================
-// OPTIONAL: Slider debug (remove later)
-// ======================================================
-
-slider.addEventListener("input", () => {
+slider?.addEventListener("input", () => {
   console.debug(
     `Grounding level: ${slider.value} (${GROUNDING_LABELS[slider.value]})`
   );
