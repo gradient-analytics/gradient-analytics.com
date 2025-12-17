@@ -1,212 +1,133 @@
-/* =========================================================
-   BASE
-   ========================================================= */
+// ======================================================
+// CONFIG
+// ======================================================
 
-body {
-  margin: 0;
-  background: #111;
-  font-family: Arial, sans-serif;
+const WORKER_URL = "/_grady/rag";
+
+const GROUNDING_LABELS = [
+  "generic",
+  "light-hybrid",
+  "hybrid",
+  "repo-strong",
+  "repo-only"
+];
+
+// ======================================================
+// ELEMENTS
+// ======================================================
+
+const chatWindow = document.getElementById("chat-window");
+const chatInput  = document.getElementById("chat-input");
+const sendBtn    = document.getElementById("send-btn");
+const slider     = document.getElementById("rag-strength");
+
+// ======================================================
+// HELPERS
+// ======================================================
+
+function appendMessage(text, role, meta = {}) {
+  const msg = document.createElement("div");
+  msg.classList.add("message", role);
+
+  if (role === "grady" && meta.grounding) {
+    msg.classList.add(`response-${meta.grounding}`);
+
+    const badge = document.createElement("div");
+    badge.className = "grounding-badge";
+    badge.textContent =
+      meta.similarity !== undefined
+        ? `${meta.grounding} · sim ${meta.similarity}`
+        : meta.grounding;
+
+    msg.appendChild(badge);
+  }
+
+  const content = document.createElement("div");
+  content.textContent = text;
+  msg.appendChild(content);
+
+  chatWindow.appendChild(msg);
+  chatWindow.scrollTop = chatWindow.scrollHeight;
 }
 
-.grady-intro {
-  color: #000;
-  font-size: 1rem;
-  line-height: 1.6;
+function appendLoading() {
+  const msg = document.createElement("div");
+  msg.classList.add("message", "loading");
+  msg.textContent = "Grady is thinking…";
+  chatWindow.appendChild(msg);
+  chatWindow.scrollTop = chatWindow.scrollHeight;
+  return msg;
 }
 
-/* =========================================================
-   LAYOUT
-   ========================================================= */
+// ======================================================
+// SEND MESSAGE
+// ======================================================
 
-.grady-layout {
-  display: grid;
-  grid-template-columns: 320px 1fr;
-  grid-template-areas:
-    "left chat"
-    ".    slider";
-  gap: 28px;
-  align-items: start;
+async function sendMessage() {
+  const question = chatInput.value.trim();
+  if (!question) return;
+
+  const level = Number(slider?.value ?? 2);
+
+  appendMessage(question, "user");
+  chatInput.value = "";
+
+  const loadingMsg = appendLoading();
+
+  try {
+    const resp = await fetch(WORKER_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ question, level })
+    });
+
+    if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+
+    const data = await resp.json();
+    loadingMsg.remove();
+
+    appendMessage(data.answer, "grady", {
+      grounding: data.grounding,
+      similarity: data.similarity
+    });
+
+  } catch (err) {
+    loadingMsg.remove();
+    appendMessage(
+      "Grady encountered an error contacting the knowledge base.",
+      "grady"
+    );
+    console.error(err);
+  }
 }
 
-.grady-left   { grid-area: left; }
-.grady-chat   { grid-area: chat; }
-.grady-bottom { grid-area: slider; }
+// ======================================================
+// EVENT WIRING
+// ======================================================
 
-/* =========================================================
-   LEFT: QUESTIONS
-   ========================================================= */
+sendBtn.addEventListener("click", sendMessage);
 
-.grady-left {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
+chatInput.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") sendMessage();
+});
 
-.grady-help strong,
-.grady-help p {
-  color: #000;
-}
+document
+  .querySelectorAll(".grady-test-questions button")
+  .forEach(btn => {
+    btn.addEventListener("click", () => {
+      const q = btn.dataset.q;
+      if (!q) return;
+      chatInput.value = q;
+      sendMessage();
+    });
+  });
 
-.grady-test-questions button {
-  padding: 10px 12px;
-  font-size: 0.9rem;
-  background: #f5f7fa;
-  border: 1px solid #ccd6e0;
-  border-radius: 8px;
-  cursor: pointer;
-  text-align: left;
-}
+// ======================================================
+// SLIDER DEBUG
+// ======================================================
 
-.grady-test-questions button:hover {
-  background: #e6edf5;
-}
-
-/* =========================================================
-   CHAT
-   ========================================================= */
-
-.chat-container {
-  max-width: 960px;
-  padding: 16px;
-  background: #1b1b1b;
-  border-radius: 12px;
-}
-
-.chat-window {
-  height: 520px;
-  padding: 14px;
-  background: #0f0f0f;
-  border-radius: 8px;
-  margin-bottom: 14px;
-  overflow-y: auto;
-}
-
-.message {
-  margin-bottom: 16px;
-}
-
-.message.user  { color: #6ab0ff; }
-.message.grady.generic { color: #dc2626 ; }
-.message.grady.hybrid  { color: #3b82f6; }
-.message.grady.repo    { color: #7dfc9e; }
-.message.grady.fail    { color: #f87171; }
-
-/* =========================================================
-   INPUT
-   ========================================================= */
-
-.input-row {
-  display: flex;
-  gap: 10px;
-}
-
-#chat-input {
-  flex-grow: 1;
-  padding: 12px;
-  border-radius: 8px;
-  border: 1px solid #333;
-  background: #222;
-  color: white;
-}
-
-#send-btn {
-  padding: 12px 20px;
-  background: #005eff;
-  border: none;
-  color: white;
-  border-radius: 8px;
-}
-
-/* =========================================================
-   SLIDER
-   ========================================================= */
-
-.grady-slider-row {
-  background: #f5f7fa;
-  border: 1px solid #ccd6e0;
-  border-radius: 12px;
-  padding: 14px 16px;
-}
-
-.grady-slider-horizontal {
-  width: 100%;
-  appearance: none;
-  height: 6px;
-  border-radius: 4px;
-  background: linear-gradient(
-    to right,
-    #dc2626  0%,
-    #b45309 25%,
-    #3b82f6 50%,
-    #1e3a8a 75%,
-    #000000 100%
+slider?.addEventListener("input", () => {
+  console.debug(
+    `Grounding level: ${slider.value} (${GROUNDING_LABELS[slider.value]})`
   );
-}
-
-.grady-slider-horizontal::-webkit-slider-thumb {
-  appearance: none;
-  width: 18px;
-  height: 18px;
-  background: #fff;
-  border: 3px solid #000;
-  border-radius: 50%;
-}
-
-.rag-labels-horizontal {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 10px;
-  font-size: 0.85rem;
-}
-
-.rag-labels-horizontal span {
-  opacity: 0.4;
-  font-weight: 600;
-}
-
-.rag-labels-horizontal span.active {
-  opacity: 1;
-}
-
-/* =========================================================
-   LEGEND
-   ========================================================= */
-
-.grady-legend {
-  margin-top: 12px;
-  display: flex;
-  gap: 18px;
-  font-size: 0.85rem;
-  color: #000;
-}
-
-.dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  display: inline-block;
-  margin-right: 6px;
-}
-
-.dot.generic { background: #dc2626 ; }
-.dot.hybrid  { background: #3b82f6; }
-.dot.repo    { background: #7dfc9e; }
-
-/* Response grounding colors */
-.response-generic {
-  color: #a855f7; /* purple */
-}
-
-.response-light-hybrid,
-.response-hybrid {
-  color: #3b82f6; /* blue */
-}
-
-.response-repo-strong,
-.response-repo-only {
-  color: #000000; /* black */
-  background: #f5f5f5;
-  padding: 6px 8px;
-  border-radius: 6px;
-}
-
+});
