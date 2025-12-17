@@ -177,3 +177,14 @@
   border-left-color: var(--grady-repo);
 }
 
+.chat-message.assistant::before {
+  content: attr(data-grounding);
+  display: block;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  opacity: 0.5;
+  margin-bottom: 0.25rem;
+}
+
