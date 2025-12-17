@@ -1,71 +1,135 @@
-const chatWindow = document.getElementById("chat-window");
-const chatInput = document.getElementById("chat-input");
-const sendBtn = document.getElementById("send-btn");
-const slider = document.getElementById("rag-strength");
+// ======================================================
+// CONFIG
+// ======================================================
 
-// --- helpers ---
-function addMessage(text, sender, cls = "") {
-  const div = document.createElement("div");
-  div.className = `message ${sender} ${cls}`;
-  div.textContent = text;
-  chatWindow.appendChild(div);
+const WORKER_URL = "https://grady-worker.round-hill-0906.workers.dev/rag";
+
+// Grounding labels by slider level
+const GROUNDING_LABELS = [
+  "generic",
+  "light-hybrid",
+  "hybrid",
+  "repo-strong",
+  "repo-only"
+];
+
+// ======================================================
+// ELEMENTS
+// ======================================================
+
+const chatWindow = document.getElementById("chat-window");
+const chatInput  = document.getElementById("chat-input");
+const sendBtn    = document.getElementById("send-btn");
+const slider     = document.getElementById("rag-strength");
+
+// ======================================================
+// HELPERS
+// ======================================================
+
+function appendMessage(text, role, meta = {}) {
+  const msg = document.createElement("div");
+  msg.classList.add("message", role);
+
+  if (role === "grady" && meta.grounding) {
+    msg.classList.add(`response-${meta.grounding}`);
+  }
+
+  msg.textContent = text;
+  chatWindow.appendChild(msg);
   chatWindow.scrollTop = chatWindow.scrollHeight;
 }
 
-// --- send question ---
-function sendQuestion(question) {
-  if (!question) return;
-
-  addMessage(question, "user");
-
-  const ragMode = Number(slider.value); // 0–4
-
-  fetch("https://grady-worker.round-hill-0906.workers.dev/rag", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      question,
-      rag_mode: ragMode
-    })
-  })
-    .then(res => res.json())
-    .then(data => {
-      if (data.error) {
-        addMessage(data.error, "grady", "fail");
-      } else {
-        addMessage(
-          data.answer,
-          "grady",
-          data.source || "generic"
-        );
-      }
-    })
-    .catch(err => {
-      console.error(err);
-      addMessage(
-        "Grady encountered an error contacting the knowledge base.",
-        "grady",
-        "fail"
-      );
-    });
+function appendLoading() {
+  const msg = document.createElement("div");
+  msg.classList.add("message", "loading");
+  msg.textContent = "Grady is thinking…";
+  chatWindow.appendChild(msg);
+  chatWindow.scrollTop = chatWindow.scrollHeight;
+  return msg;
 }
 
-// --- events ---
-sendBtn.addEventListener("click", () => {
-  sendQuestion(chatInput.value.trim());
+// ======================================================
+// SEND MESSAGE
+// ======================================================
+
+async function sendMessage() {
+  const question = chatInput.value.trim();
+  if (!question) return;
+
+  const level = Number(slider.value);
+
+  appendMessage(question, "user");
   chatInput.value = "";
-});
 
-chatInput.addEventListener("keydown", e => {
-  if (e.key === "Enter") {
-    sendQuestion(chatInput.value.trim());
-    chatInput.value = "";
+  const loadingMsg = appendLoading();
+
+  try {
+    const resp = await fetch(WORKER_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        question,
+        level
+      })
+    });
+
+    if (!resp.ok) {
+      throw new Error(`HTTP ${resp.status}`);
+    }
+
+    const data = await resp.json();
+
+    loadingMsg.remove();
+
+    appendMessage(
+      data.answer,
+      "grady",
+      {
+        grounding: data.grounding,
+        similarity: data.similarity
+      }
+    );
+
+  } catch (err) {
+    loadingMsg.remove();
+    appendMessage(
+      "Grady encountered an error contacting the knowledge base.",
+      "grady"
+    );
+    console.error(err);
   }
+}
+
+// ======================================================
+// EVENT WIRING
+// ======================================================
+
+// Send button
+sendBtn.addEventListener("click", sendMessage);
+
+// Enter key
+chatInput.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") sendMessage();
 });
 
-// --- pre-formed questions ---
-document.querySelectorAll(".grady-test-questions button").forEach(btn => {
-  btn.addEventListener("click", () => {
-    sendQuestion(btn.dataset.q);
+// Pre-formed question buttons
+document
+  .querySelectorAll(".grady-test-questions button")
+  .forEach(btn => {
+    btn.addEventListener("click", () => {
+      chatInput.value = btn.dataset.q;
+      sendMessage();
+    });
   });
+
+// ======================================================
+// OPTIONAL: Slider debug (remove later)
+// ======================================================
+
+slider.addEventListener("input", () => {
+  console.debug(
+    `Grounding level: ${slider.value} (${GROUNDING_LABELS[slider.value]})`
+  );
 });
