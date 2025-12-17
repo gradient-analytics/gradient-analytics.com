@@ -161,15 +161,17 @@ body {
 
 .grady-slider-horizontal {
   width: 100%;
+  -webkit-appearance: none;
   appearance: none;
   height: 6px;
   border-radius: 4px;
   background: linear-gradient(
     to right,
-    #9aa3ad 0%,
-    #5b7cff 50%,
-    #1e3a8a 100%
+    #7a0b0b 0%,     /* dark red — generic */
+    #3b82f6 50%,    /* blue — hybrid */
+    #000000 100%    /* black — repo-only */
   );
+  outline: none;
 }
 
 .grady-slider-horizontal::-webkit-slider-thumb {
