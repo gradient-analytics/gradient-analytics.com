@@ -23,7 +23,7 @@ body {
 
 .grady-layout {
   display: grid;
-  grid-template-columns: 260px minmax(520px, 780px) 320px;
+  grid-template-columns: 260px minmax(520px, 800px) 320px;
   gap: 24px;
   align-items: start;
 }
