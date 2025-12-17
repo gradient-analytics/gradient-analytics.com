@@ -1,129 +1,70 @@
-// ======================================================
-// CONFIG
-// ======================================================
-
-const WORKER_URL = "https://grady.gradient-analytics.com/rag";
-
-const GROUNDING_LABELS = [
-  "generic",
-  "light-hybrid",
-  "hybrid",
-  "repo-strong",
-  "repo-only"
-];
-
-// ======================================================
-// ELEMENTS
-// ======================================================
+const API_URL = "https://grady.gradient-analytics.com/_grady/rag";
 
 const chatWindow = document.getElementById("chat-window");
-const chatInput  = document.getElementById("chat-input");
-const sendBtn    = document.getElementById("send-btn");
-const slider     = document.getElementById("rag-strength");
+const chatInput = document.getElementById("chat-input");
+const sendBtn = document.getElementById("send-btn");
+const slider = document.getElementById("rag-strength");
+const questionButtons = document.querySelectorAll(".grady-test-questions button");
 
-// ======================================================
-// HELPERS
-// ======================================================
-
-function appendMessage(text, role, meta = {}) {
-  const msg = document.createElement("div");
-  msg.classList.add("message", role);
-
-  if (role === "grady" && meta.grounding) {
-    msg.classList.add(`response-${meta.grounding}`);
-
-    const badge = document.createElement("div");
-    badge.className = "grounding-badge";
-    badge.textContent =
-      meta.similarity !== undefined
-        ? `${meta.grounding} · sim ${meta.similarity}`
-        : meta.grounding;
-
-    msg.appendChild(badge);
-  }
-
-  const content = document.createElement("div");
-  content.textContent = text;
-  msg.appendChild(content);
-
-  chatWindow.appendChild(msg);
+function addMessage(text, role = "user") {
+  const div = document.createElement("div");
+  div.className = `chat-message ${role}`;
+  div.textContent = text;
+  chatWindow.appendChild(div);
   chatWindow.scrollTop = chatWindow.scrollHeight;
 }
 
-function appendLoading() {
-  const msg = document.createElement("div");
-  msg.classList.add("message", "loading");
-  msg.textContent = "Grady is thinking…";
-  chatWindow.appendChild(msg);
-  chatWindow.scrollTop = chatWindow.scrollHeight;
-  return msg;
-}
-
-// ======================================================
-// SEND MESSAGE
-// ======================================================
-
-async function sendMessage() {
-  const question = chatInput.value.trim();
-  if (!question) return;
-
-  const level = Number(slider?.value ?? 2);
-
-  appendMessage(question, "user");
+async function askGrady(question) {
+  addMessage(question, "user");
   chatInput.value = "";
 
-  const loadingMsg = appendLoading();
+  const level = parseInt(slider.value, 10);
+  addMessage("Thinking…", "system");
 
   try {
-    const resp = await fetch(WORKER_URL, {
+    const resp = await fetch(API_URL, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json"
+      },
       body: JSON.stringify({ question, level })
     });
 
-    if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+    if (!resp.ok) {
+      throw new Error(`Server error (${resp.status})`);
+    }
 
     const data = await resp.json();
-    loadingMsg.remove();
 
-    appendMessage(data.answer, "grady", {
-      grounding: data.grounding,
-      similarity: data.similarity
-    });
+    // Remove "Thinking…" message
+    chatWindow.lastChild.remove();
+
+    addMessage(data.answer, "assistant");
 
   } catch (err) {
-    loadingMsg.remove();
-    appendMessage(
-      "Grady encountered an error contacting the knowledge base.",
-      "grady"
-    );
-    console.error(err);
+    chatWindow.lastChild.remove();
+    addMessage("Error: " + err.message, "system");
   }
 }
 
-// ======================================================
-// EVENT WIRING
-// ======================================================
-
-sendBtn.addEventListener("click", sendMessage);
-
-chatInput.addEventListener("keydown", (e) => {
-  if (e.key === "Enter") sendMessage();
+// Send button
+sendBtn.addEventListener("click", () => {
+  const question = chatInput.value.trim();
+  if (question) askGrady(question);
 });
 
-document
-  .querySelectorAll(".grady-test-questions button")
-  .forEach(btn => {
-    btn.addEventListener("click", () => {
-      const q = btn.dataset.q;
-      if (!q) return;
-      chatInput.value = q;
-      sendMessage();
-    });
-  });
+// Enter key
+chatInput.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
+    e.preventDefault();
+    sendBtn.click();
+  }
+});
 
-slider?.addEventListener("input", () => {
-  console.debug(
-    `Grounding level: ${slider.value} (${GROUNDING_LABELS[slider.value]})`
-  );
+// Preset question buttons
+questionButtons.forEach(btn => {
+  btn.addEventListener("click", () => {
+    const q = btn.getAttribute("data-q");
+    askGrady(q);
+  });
 });
