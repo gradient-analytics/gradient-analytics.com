@@ -134,3 +134,46 @@
 .dot.generic { background: #bbb; }
 .dot.hybrid { background: #888; }
 .dot.repo { background: #333; }
+
+/* === Grady grounding color semantics === */
+/* Generic → Repo-only (light → dark, same hue family) */
+
+:root {
+  --grady-generic: #cfd8dc;
+  --grady-light:   #b0bec5;
+  --grady-hybrid:  #90a4ae;
+  --grady-strong:  #607d8b;
+  --grady-repo:    #37474f;
+}
+
+/* Base accent for all assistant messages */
+.chat-message.assistant {
+  border-left: 4px solid var(--grady-hybrid);
+  background: linear-gradient(
+    to right,
+    rgba(144, 164, 174, 0.08),
+    rgba(244, 244, 244, 1) 25%
+  );
+}
+
+/* Grounding-specific overrides */
+.chat-message.assistant.generic {
+  border-left-color: var(--grady-generic);
+}
+
+.chat-message.assistant.light-hybrid {
+  border-left-color: var(--grady-light);
+}
+
+.chat-message.assistant.hybrid {
+  border-left-color: var(--grady-hybrid);
+}
+
+.chat-message.assistant.repo-strong {
+  border-left-color: var(--grady-strong);
+}
+
+.chat-message.assistant.repo-only {
+  border-left-color: var(--grady-repo);
+}
+
