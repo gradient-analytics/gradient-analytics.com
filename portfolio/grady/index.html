@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <title>Grady | Gradient Analytics</title>
+
   <link rel="stylesheet" href="../../style.css">
   <link rel="stylesheet" href="grady.css">
 </head>
@@ -16,25 +17,13 @@
   </div>
 </header>
 
-<nav>
-  <div class="container">
-    <a href="../../index.html">Home</a>
-    <a href="../../services.html">Services</a>
-    <a href="../../sectors.html">Who We Serve</a>
-    <a href="../../approach.html">Approach</a>
-    <a href="../">Portfolio</a>
-    <a href="../../about.html">About</a>
-    <a href="../../contact.html">Contact</a>
-  </div>
-</nav>
-
 <main>
 
 <section class="section">
   <div class="container">
     <p class="grady-intro">
-      <strong>Grady</strong> is an interactive research assistant developed by
-      Gradient Analytics & Research.
+      <strong>Grady</strong> answers questions using internal documents and general knowledge,
+      with explicit control over source grounding.
     </p>
   </div>
 </section>
@@ -42,11 +31,11 @@
 <section class="section">
   <div class="container grady-layout">
 
-    <!-- LEFT -->
+    <!-- LEFT: QUESTIONS -->
     <aside class="grady-left">
       <div class="grady-help">
         <strong>Try Grady</strong>
-        <p>Click a test question or type your own.</p>
+        <p>Click a question or ask your own.</p>
       </div>
 
       <div class="grady-test-questions">
@@ -56,34 +45,50 @@
       </div>
     </aside>
 
-    <!-- RIGHT -->
+    <!-- RIGHT: CHAT -->
     <div class="grady-chat">
       <div class="chat-container">
         <div id="chat-window" class="chat-window"></div>
 
         <div class="input-row">
-          <input id="chat-input" placeholder="Ask Grady a question..." />
+          <input id="chat-input" placeholder="Ask Grady a question…" />
           <button id="send-btn">Send</button>
         </div>
       </div>
     </div>
 
-    <!-- BOTTOM (UNDER CHAT ONLY) -->
+    <!-- BOTTOM: SLIDER -->
     <div class="grady-bottom">
       <div class="grady-slider-explainer">
         <strong>Source grounding</strong>
-        <p>Control how strongly Grady relies on repository documents.</p>
+        <p>How strictly should Grady rely on repository documents?</p>
       </div>
 
       <div class="grady-slider-row">
-        <input type="range" min="0" max="2" value="1"
-               class="grady-slider-horizontal">
+        <input
+          type="range"
+          id="rag-strength"
+          min="0"
+          max="4"
+          step="1"
+          value="2"
+          class="grady-slider-horizontal"
+        />
 
         <div class="rag-labels-horizontal">
-          <span class="label-generic">Generic</span>
-          <span class="label-hybrid">Hybrid</span>
-          <span class="label-repo">Repo-only</span>
+          <span data-v="0">Generic</span>
+          <span data-v="1">Light</span>
+          <span data-v="2">Hybrid</span>
+          <span data-v="3">Strong</span>
+          <span data-v="4">Repo-only</span>
         </div>
+      </div>
+
+      <!-- LEGEND -->
+      <div class="grady-legend">
+        <div><span class="dot generic"></span> Generic knowledge</div>
+        <div><span class="dot hybrid"></span> Mixed reasoning</div>
+        <div><span class="dot repo"></span> Repository-grounded</div>
       </div>
     </div>
 
@@ -94,4 +99,8 @@
 
 <footer>
   <div class="container">© 2025 Gradient Analytics</div>
-<
+</footer>
+
+<script src="grady.js"></script>
+</body>
+</html>
