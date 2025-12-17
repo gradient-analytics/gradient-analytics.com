@@ -1,10 +1,11 @@
-/* === Grady layout recovery === */
+/* === Grady layout === */
 
 .grady-layout {
   display: grid;
   grid-template-columns: 1fr 2fr;
   grid-template-rows: auto auto;
   gap: 2rem;
+  align-items: start;
 }
 
 .grady-left {
@@ -17,15 +18,28 @@
 
 .grady-bottom {
   grid-column: 1 / -1;
+  margin-top: 1rem;
+}
+
+/* === Chat container === */
+
+.chat-container {
+  display: flex;
+  flex-direction: column;
 }
 
 .chat-window {
-  height: 300px;
+  height: 320px;
   border: 1px solid #ccc;
   padding: 1rem;
   overflow-y: auto;
   background: white;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
 }
+
+/* === Input row === */
 
 .input-row {
   display: flex;
@@ -33,12 +47,90 @@
   margin-top: 0.5rem;
 }
 
-.message.user {
-  text-align: right;
-  color: #333;
+.input-row input {
+  flex: 1;
+  padding: 0.5rem;
+  font-size: 1rem;
 }
 
-.message.grady {
-  text-align: left;
+.input-row button {
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+
+/* === Chat messages (MATCHES JS) === */
+
+.chat-message {
+  max-width: 85%;
+  line-height: 1.4;
+  padding: 0.6rem 0.75rem;
+  border-radius: 6px;
+  font-size: 0.95rem;
+}
+
+/* User message */
+.chat-message.user {
+  align-self: flex-end;
+  background: #e6e6e6;
+  color: #222;
+  text-align: right;
+}
+
+/* Grady response */
+.chat-message.assistant {
+  align-self: flex-start;
+  background: #f4f4f4;
   color: #111;
 }
+
+/* System / status */
+.chat-message.system {
+  align-self: center;
+  font-style: italic;
+  color: #666;
+  background: transparent;
+  padding: 0;
+}
+
+/* === Slider === */
+
+.grady-slider-row {
+  margin-top: 1rem;
+}
+
+.grady-slider-horizontal {
+  width: 100%;
+}
+
+.rag-labels-horizontal {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.25rem;
+  font-size: 0.85rem;
+  color: #000; /* FIXED: was too light */
+}
+
+.rag-labels-horizontal span {
+  cursor: default;
+}
+
+/* === Legend === */
+
+.grady-legend {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 0.75rem;
+  font-size: 0.85rem;
+}
+
+.grady-legend .dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 0.4rem;
+}
+
+.dot.generic { background: #bbb; }
+.dot.hybrid { background: #888; }
+.dot.repo { background: #333; }
