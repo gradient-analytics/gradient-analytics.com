@@ -2,7 +2,7 @@
 // CONFIG
 // ======================================================
 
-const WORKER_URL = "/_grady/rag";
+const WORKER_URL = "https://grady.gradient-analytics.com/rag";
 
 const GROUNDING_LABELS = [
   "generic",
