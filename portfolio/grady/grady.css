@@ -1,133 +1,44 @@
-// ======================================================
-// CONFIG
-// ======================================================
+/* === Grady layout recovery === */
 
-const WORKER_URL = "/_grady/rag";
-
-const GROUNDING_LABELS = [
-  "generic",
-  "light-hybrid",
-  "hybrid",
-  "repo-strong",
-  "repo-only"
-];
-
-// ======================================================
-// ELEMENTS
-// ======================================================
-
-const chatWindow = document.getElementById("chat-window");
-const chatInput  = document.getElementById("chat-input");
-const sendBtn    = document.getElementById("send-btn");
-const slider     = document.getElementById("rag-strength");
-
-// ======================================================
-// HELPERS
-// ======================================================
-
-function appendMessage(text, role, meta = {}) {
-  const msg = document.createElement("div");
-  msg.classList.add("message", role);
-
-  if (role === "grady" && meta.grounding) {
-    msg.classList.add(`response-${meta.grounding}`);
-
-    const badge = document.createElement("div");
-    badge.className = "grounding-badge";
-    badge.textContent =
-      meta.similarity !== undefined
-        ? `${meta.grounding} · sim ${meta.similarity}`
-        : meta.grounding;
-
-    msg.appendChild(badge);
-  }
-
-  const content = document.createElement("div");
-  content.textContent = text;
-  msg.appendChild(content);
-
-  chatWindow.appendChild(msg);
-  chatWindow.scrollTop = chatWindow.scrollHeight;
+.grady-layout {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-template-rows: auto auto;
+  gap: 2rem;
 }
 
-function appendLoading() {
-  const msg = document.createElement("div");
-  msg.classList.add("message", "loading");
-  msg.textContent = "Grady is thinking…";
-  chatWindow.appendChild(msg);
-  chatWindow.scrollTop = chatWindow.scrollHeight;
-  return msg;
+.grady-left {
+  grid-column: 1;
 }
 
-// ======================================================
-// SEND MESSAGE
-// ======================================================
-
-async function sendMessage() {
-  const question = chatInput.value.trim();
-  if (!question) return;
-
-  const level = Number(slider?.value ?? 2);
-
-  appendMessage(question, "user");
-  chatInput.value = "";
-
-  const loadingMsg = appendLoading();
-
-  try {
-    const resp = await fetch(WORKER_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ question, level })
-    });
-
-    if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
-
-    const data = await resp.json();
-    loadingMsg.remove();
-
-    appendMessage(data.answer, "grady", {
-      grounding: data.grounding,
-      similarity: data.similarity
-    });
-
-  } catch (err) {
-    loadingMsg.remove();
-    appendMessage(
-      "Grady encountered an error contacting the knowledge base.",
-      "grady"
-    );
-    console.error(err);
-  }
+.grady-chat {
+  grid-column: 2;
 }
 
-// ======================================================
-// EVENT WIRING
-// ======================================================
+.grady-bottom {
+  grid-column: 1 / -1;
+}
 
-sendBtn.addEventListener("click", sendMessage);
+.chat-window {
+  height: 300px;
+  border: 1px solid #ccc;
+  padding: 1rem;
+  overflow-y: auto;
+  background: white;
+}
 
-chatInput.addEventListener("keydown", (e) => {
-  if (e.key === "Enter") sendMessage();
-});
+.input-row {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
 
-document
-  .querySelectorAll(".grady-test-questions button")
-  .forEach(btn => {
-    btn.addEventListener("click", () => {
-      const q = btn.dataset.q;
-      if (!q) return;
-      chatInput.value = q;
-      sendMessage();
-    });
-  });
+.message.user {
+  text-align: right;
+  color: #333;
+}
 
-// ======================================================
-// SLIDER DEBUG
-// ======================================================
-
-slider?.addEventListener("input", () => {
-  console.debug(
-    `Grounding level: ${slider.value} (${GROUNDING_LABELS[slider.value]})`
-  );
-});
+.message.grady {
+  text-align: left;
+  color: #111;
+}
