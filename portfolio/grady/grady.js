@@ -2,7 +2,7 @@
 // CONFIG
 // ======================================================
 
-const WORKER_URL = "https://grady-worker.round-hill-0906.workers.dev/rag";
+const WORKER_URL = "/_grady/rag";
 
 // Grounding labels by slider level
 const GROUNDING_LABELS = [
@@ -32,9 +32,17 @@ function appendMessage(text, role, meta = {}) {
 
   if (role === "grady" && meta.grounding) {
     msg.classList.add(`response-${meta.grounding}`);
+
+    const badge = document.createElement("div");
+    badge.className = "grounding-badge";
+    badge.textContent = `${meta.grounding} · sim ${meta.similarity}`;
+    msg.appendChild(badge);
   }
 
-  msg.textContent = text;
+  const content = document.createElement("div");
+  content.textContent = text;
+  msg.appendChild(content);
+
   chatWindow.appendChild(msg);
   chatWindow.scrollTop = chatWindow.scrollHeight;
 }
@@ -118,9 +126,13 @@ chatInput.addEventListener("keydown", (e) => {
 document
   .querySelectorAll(".grady-test-questions button")
   .forEach(btn => {
-    btn.addEventListener("click", () => {
-      chatInput.value = btn.dataset.q;
-      sendMessage();
+      btn.addEventListener("click", () => {
+        const q = btn.dataset.q;
+        if (!q) return;
+        chatInput.value = q;
+        sendMessage();
+      });
+
     });
   });
 
