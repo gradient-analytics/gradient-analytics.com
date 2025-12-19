@@ -1,4 +1,4 @@
-const API_URL = "https://grady.gradient-analytics.com/_grady/rag";
+const API_URL = "/_grady/rag";
 
 const chatWindow = document.getElementById("chat-window");
 const chatInput = document.getElementById("chat-input");
