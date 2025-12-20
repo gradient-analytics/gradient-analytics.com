@@ -9,19 +9,18 @@
 </head>
 
 <body>
-  
+
+<!-- =========================
+     SINGLE HEADER (ONLY ONE)
+========================= -->
 <header class="site-header">
   <div class="container">
     <h1>Grady</h1>
-    <p>A research assistant grounded in Gradient Analytics’ internal documents.</p>
+    <p>Grady is Gradient Analytics’ retrieval-augmented research assistant, combining large-language reasoning with document-grounded retrieval to provide transparent, evidence-based answers.
+A configurable grounding control allows responses to range from general domain knowledge to strictly repository-derived interpretations based on the underlying documents.</p>
   </div>
 
-<header class="site-header">
-  <div class="container">
-    <h1>Grady</h1>
-    <p>A research assistant grounded in Gradient Analytics’ internal documents.</p>
-  </div>
-
+  <!-- Minimal navigation at bottom of header -->
   <nav class="site-nav minimal-nav">
     <div class="container nav-inner">
       <a href="/">Home</a>
@@ -30,102 +29,90 @@
   </nav>
 </header>
 
-  
-</header>
-
-<header class="site-header">
-  <div class="container">
-    <h1>Grady</h1>
-    <p>A research assistant grounded in Gradient Analytics’ internal documents.</p>
-  </div>
-</header>
-
 <main>
 
-<section class="section">
-  <div class="container">
-    <p class="grady-intro">
-      <strong>Grady</strong> answers questions using internal documents and general knowledge,
-      with explicit control over source grounding.
-    </p>
-  </div>
-</section>
+  <section class="section">
+    <div class="container">
+      <p class="grady-intro">
+        <strong>Grady</strong> answers questions using internal documents and general knowledge,
+        with explicit control over source grounding.
+      </p>
+    </div>
+  </section>
 
-<section class="section">
-  <div class="container grady-layout">
+  <section class="section">
+    <div class="container grady-layout">
 
-    <!-- LEFT: QUESTIONS -->
-    <aside class="grady-left">
-      <div class="grady-help">
-        <strong>Try Grady</strong>
-        <p>Click a question or ask your own.</p>
-      </div>
+      <!-- LEFT: QUESTIONS -->
+      <aside class="grady-left">
+        <div class="grady-help">
+          <strong>Try Grady</strong>
+          <p>Click a question or ask your own.</p>
+        </div>
 
-      <div class="grady-test-questions">
-          <button data-q="What do the documents say about fumigation and fungi?">
-            What do the documents say about fumigation and fungi?
+        <div class="grady-test-questions">
+          <button data-q="What does soil fumigation do to soil fungi?">
+            What does soil fumigation do to soil fungi?
           </button>
-          
+
           <button data-q="What tradeoffs exist between pathogen control and soil health?">
             What tradeoffs exist between pathogen control and soil health?
           </button>
-          
-          <button data-q="Which microbial groups are most affected?">
-            Which microbial groups are most affected?
+
+          <button data-q="What effects does soil fumigation have on crop yield?">
+            What effects does soil fumigation have on crop yield?
           </button>
-
-      </div>
-    </aside>
-
-    <!-- RIGHT: CHAT -->
-    <div class="grady-chat">
-      <div class="chat-container">
-        <div id="chat-window" class="chat-window"></div>
-
-        <div class="input-row">
-          <input id="chat-input" placeholder="Ask Grady a question…" />
-          <button id="send-btn">Send</button>
         </div>
-      </div>
-    </div>
+      </aside>
 
-    <!-- BOTTOM: SLIDER -->
-    <div class="grady-bottom">
-      <div class="grady-slider-explainer">
-        <strong>Source grounding</strong>
-        <p>How strictly should Grady rely on repository documents?</p>
-      </div>
+      <!-- RIGHT: CHAT -->
+      <div class="grady-chat">
+        <div class="chat-container">
+          <div id="chat-window" class="chat-window"></div>
 
-      <div class="grady-slider-row">
-        <input
-          type="range"
-          id="rag-strength"
-          min="0"
-          max="4"
-          step="1"
-          value="2"
-          class="grady-slider-horizontal"
-        />
-
-        <div class="rag-labels-horizontal">
-          <span data-v="0">Generic</span>
-          <span data-v="1">Light</span>
-          <span data-v="2">Hybrid</span>
-          <span data-v="3">Strong</span>
-          <span data-v="4">Repo-only</span>
+          <div class="input-row">
+            <input id="chat-input" placeholder="Ask Grady a question…" />
+            <button id="send-btn">Send</button>
+          </div>
         </div>
       </div>
 
-      <!-- LEGEND -->
-      <div class="grady-legend">
-        <div><span class="dot generic"></span> Generic knowledge</div>
-        <div><span class="dot hybrid"></span> Mixed reasoning</div>
-        <div><span class="dot repo"></span> Repository-grounded</div>
-      </div>
-    </div>
+      <!-- BOTTOM: SLIDER -->
+      <div class="grady-bottom">
+        <div class="grady-slider-explainer">
+          <strong>Source grounding</strong>
+          <p>How strictly should Grady rely on repository documents?</p>
+        </div>
 
-  </div>
-</section>
+        <div class="grady-slider-row">
+          <input
+            type="range"
+            id="rag-strength"
+            min="0"
+            max="4"
+            step="1"
+            value="2"
+            class="grady-slider-horizontal"
+          />
+
+          <div class="rag-labels-horizontal">
+            <span data-v="0">Generic</span>
+            <span data-v="1">Light</span>
+            <span data-v="2">Hybrid</span>
+            <span data-v="3">Strong</span>
+            <span data-v="4">Repo-only</span>
+          </div>
+        </div>
+
+        <div class="grady-legend">
+          <div><span class="dot generic"></span> Generic knowledge</div>
+          <div><span class="dot hybrid"></span> Mixed reasoning</div>
+          <div><span class="dot repo"></span> Repository-grounded</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
 
 </main>
 
