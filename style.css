@@ -210,17 +210,18 @@ footer .container {
 /* Responsive tweaks */
 
 @media (max-width: 800px) {
-  .hero-layout,
-  .columns-2 {
-    grid-template-columns: 1fr;
-  }
-
-  .site-header {
-    text-align: center;
-  }
-
   nav .container {
     justify-content: center;
+  }
+
+  .nav-links {
+    width: 100%;
+    justify-content: center;
+    gap: 12px;
+  }
+
+  nav a {
+    font-size: 0.95rem;
   }
 }
 
