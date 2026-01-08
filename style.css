@@ -120,6 +120,14 @@ nav a:focus {
   margin-bottom: 10px;
 }
 
+.hero-highlights strong {
+  font-size: 1.05rem;
+}
+
+.hero-highlights li {
+  line-height: 1.55;
+}
+
 /* Sections */
 
 .section {
