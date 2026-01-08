@@ -110,7 +110,14 @@ nav a:focus {
   padding: 16px 18px;
   box-shadow: 0 4px 10px rgba(15, 23, 42, 0.08);
   font-size: 0.9rem;
-  margin-bottom: 8px;
+}
+
+.hero-highlights ul {
+  margin-top: 10px;
+}
+
+.hero-highlights li {
+  margin-bottom: 10px;
 }
 
 /* Sections */
