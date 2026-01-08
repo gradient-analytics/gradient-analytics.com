@@ -1,4 +1,6 @@
-/* Global styles */
+/* =========================
+   Global styles
+========================= */
 
 * {
   box-sizing: border-box;
@@ -12,7 +14,9 @@ body {
   line-height: 1.6;
 }
 
-/* Layout */
+/* =========================
+   Layout
+========================= */
 
 .container {
   max-width: 1100px;
@@ -20,7 +24,9 @@ body {
   padding: 0 20px;
 }
 
-/* Header & navigation */
+/* =========================
+   Header & navigation
+========================= */
 
 .site-header {
   background: linear-gradient(135deg, #1D3557, #16324f);
@@ -69,7 +75,9 @@ nav a:focus {
   color: #f4d35e;
 }
 
-/* Hero */
+/* =========================
+   Hero
+========================= */
 
 .hero {
   padding: 50px 0 30px;
@@ -104,31 +112,39 @@ nav a:focus {
   margin-bottom: 10px;
 }
 
+/* Hero highlights (right-hand box) */
+
 .hero-highlights {
   background: #ffffff;
   border-radius: 12px;
-  padding: 16px 18px;
+  padding: 18px 20px;
   box-shadow: 0 4px 10px rgba(15, 23, 42, 0.08);
-  font-size: 0.9rem;
+  font-size: 1.05rem;
+}
+
+.hero-highlights strong {
+  display: block;
+  font-size: 1.15rem;
+  margin-bottom: 6px;
 }
 
 .hero-highlights ul {
   margin-top: 10px;
+  padding-left: 20px;
 }
 
 .hero-highlights li {
-  margin-bottom: 10px;
+  line-height: 1.6;
+  padding-bottom: 12px;
 }
 
-.hero-highlights strong {
-  font-size: 1.15rem;
+.hero-highlights li:last-child {
+  padding-bottom: 0;
 }
 
-.hero-highlights li {
-  line-height: 1.55;
-}
-
-/* Sections */
+/* =========================
+   Sections
+========================= */
 
 .section {
   padding: 40px 0;
@@ -148,7 +164,9 @@ nav a:focus {
   font-size: 1.5rem;
 }
 
-/* Pillar cards */
+/* =========================
+   Pillar cards
+========================= */
 
 .pillars {
   display: grid;
@@ -170,14 +188,18 @@ nav a:focus {
   color: #1D3557;
 }
 
-/* Lists */
+/* =========================
+   Lists (global)
+========================= */
 
 ul {
   padding-left: 20px;
   margin-top: 8px;
 }
 
-/* Two-column layout */
+/* =========================
+   Two-column layout
+========================= */
 
 .columns-2 {
   display: grid;
@@ -185,7 +207,9 @@ ul {
   gap: 30px;
 }
 
-/* Footer */
+/* =========================
+   Footer
+========================= */
 
 footer {
   background: #e5e7eb;
@@ -204,7 +228,9 @@ footer .container {
   opacity: 0.9;
 }
 
-/* Buttons / links */
+/* =========================
+   Buttons / links
+========================= */
 
 .btn-primary {
   display: inline-block;
@@ -223,7 +249,9 @@ footer .container {
   background: #16324f;
 }
 
-/* Responsive tweaks */
+/* =========================
+   Responsive tweaks
+========================= */
 
 @media (max-width: 800px) {
   nav .container {
@@ -239,9 +267,15 @@ footer .container {
   nav a {
     font-size: 0.95rem;
   }
+
+  .hero-layout {
+    grid-template-columns: 1fr;
+  }
 }
 
-/* Portfolio grid */
+/* =========================
+   Portfolio grid
+========================= */
 
 .portfolio-grid {
   display: grid;
@@ -265,4 +299,3 @@ footer .container {
   transform: translateY(-3px);
   box-shadow: 0 6px 12px rgba(15, 23, 42, 0.15);
 }
-
