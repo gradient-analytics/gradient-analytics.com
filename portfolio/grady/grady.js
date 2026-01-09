@@ -27,7 +27,10 @@ async function askGrady(question) {
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({ question, level })
+      body: JSON.stringify({
+        question,
+        rag_strength: level
+          })
     });
 
     if (!resp.ok) {
