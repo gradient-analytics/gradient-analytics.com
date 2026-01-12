@@ -188,3 +188,34 @@
   margin-bottom: 0.25rem;
 }
 
+/* === Assistant message typography === */
+
+.chat-message.assistant p {
+  margin: 0 0 0.6rem 0;
+}
+
+.chat-message.assistant p:last-child {
+  margin-bottom: 0;
+}
+
+.chat-message.assistant strong {
+  font-weight: 600;
+}
+
+.chat-message.assistant ul,
+.chat-message.assistant ol {
+  margin: 0.4rem 0 0.6rem 1.2rem;
+  padding: 0;
+}
+
+.chat-message.assistant li {
+  margin-bottom: 0.25rem;
+}
+
+.chat-message.assistant li:last-child {
+  margin-bottom: 0;
+}
+
+.chat-message.assistant strong + ul {
+  margin-top: 0.25rem;
+}
