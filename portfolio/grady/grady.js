@@ -6,13 +6,51 @@ const sendBtn = document.getElementById("send-btn");
 const slider = document.getElementById("rag-strength");
 const questionButtons = document.querySelectorAll(".grady-test-questions button");
 
+/* =========================
+   Markdown normalization
+========================= */
+
+function normalizeGradyMarkdown(text) {
+  let t = text.trim();
+
+  // Ensure blank line after bold opening sentence
+  t = t.replace(
+    /^\*\*(.+?)\*\*(?!\n\n)/,
+    "**$1**\n\n"
+  );
+
+  // Ensure Summary label is isolated
+  t = t.replace(
+    /\*\*Summary:\*\*/g,
+    "\n\n**Summary:**\n"
+  );
+
+  // Ensure bullets start on new lines
+  t = t.replace(
+    /([^\n])\s*([-*]\s+)/g,
+    "$1\n$2"
+  );
+
+  // Ensure blank line before bullet lists
+  t = t.replace(
+    /(\*\*Summary:\*\*\n)([-*])/g,
+    "$1\n$2"
+  );
+
+  return t;
+}
+
+/* =========================
+   Message rendering
+========================= */
+
 function addMessage(text, role = "user") {
   const div = document.createElement("div");
   div.className = `chat-message ${role}`;
 
   if (role === "assistant") {
-    // uses window.marked from marked.min.js
-    div.innerHTML = window.marked.parse(text);
+    const normalized = normalizeGradyMarkdown(text);
+    div.innerHTML = marked.parse(normalized);
   } else {
     div.textContent = text;
   }
@@ -20,6 +58,10 @@ function addMessage(text, role = "user") {
   chatWindow.appendChild(div);
   chatWindow.scrollTop = chatWindow.scrollHeight;
 }
+
+/* =========================
+   Ask Grady
+========================= */
 
 async function askGrady(question) {
   addMessage(question, "user");
@@ -32,7 +74,10 @@ async function askGrady(question) {
     const resp = await fetch(API_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ question, rag_strength: level })
+      body: JSON.stringify({
+        question,
+        rag_strength: level
+      })
     });
 
     if (!resp.ok) {
@@ -41,7 +86,9 @@ async function askGrady(question) {
 
     const data = await resp.json();
 
-    chatWindow.lastChild.remove(); // remove Thinking…
+    // Remove "Thinking…" message
+    chatWindow.lastChild.remove();
+
     addMessage(data.answer, "assistant");
 
   } catch (err) {
@@ -50,12 +97,17 @@ async function askGrady(question) {
   }
 }
 
-// UI wiring unchanged
+/* =========================
+   UI wiring
+========================= */
+
+// Send button
 sendBtn.addEventListener("click", () => {
   const question = chatInput.value.trim();
   if (question) askGrady(question);
 });
 
+// Enter key
 chatInput.addEventListener("keydown", (e) => {
   if (e.key === "Enter") {
     e.preventDefault();
@@ -63,6 +115,7 @@ chatInput.addEventListener("keydown", (e) => {
   }
 });
 
+// Preset question buttons
 questionButtons.forEach(btn => {
   btn.addEventListener("click", () => {
     askGrady(btn.getAttribute("data-q"));
