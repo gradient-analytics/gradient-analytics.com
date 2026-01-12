@@ -1,6 +1,3 @@
-// ❌ REMOVE THIS LINE COMPLETELY
-// import { marked } from "https://cdn.jsdelivr.net/npm/marked/lib/marked.esm.js";
-
 const API_URL = "/_grady/rag";
 
 const chatWindow = document.getElementById("chat-window");
