@@ -1,3 +1,5 @@
+import { marked } from "https://cdn.jsdelivr.net/npm/marked/lib/marked.esm.js";
+
 const API_URL = "/_grady/rag";
 
 const chatWindow = document.getElementById("chat-window");
@@ -9,7 +11,13 @@ const questionButtons = document.querySelectorAll(".grady-test-questions button"
 function addMessage(text, role = "user") {
   const div = document.createElement("div");
   div.className = `chat-message ${role}`;
-  div.textContent = text;
+
+  if (role === "assistant") {
+    div.innerHTML = marked.parse(text);
+  } else {
+    div.textContent = text;
+  }
+
   chatWindow.appendChild(div);
   chatWindow.scrollTop = chatWindow.scrollHeight;
 }
@@ -30,7 +38,7 @@ async function askGrady(question) {
       body: JSON.stringify({
         question,
         rag_strength: level
-          })
+      })
     });
 
     if (!resp.ok) {
