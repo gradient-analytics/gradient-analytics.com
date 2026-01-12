@@ -1,4 +1,5 @@
-import { marked } from "https://cdn.jsdelivr.net/npm/marked/lib/marked.esm.js";
+// ❌ REMOVE THIS LINE COMPLETELY
+// import { marked } from "https://cdn.jsdelivr.net/npm/marked/lib/marked.esm.js";
 
 const API_URL = "/_grady/rag";
 
@@ -13,7 +14,8 @@ function addMessage(text, role = "user") {
   div.className = `chat-message ${role}`;
 
   if (role === "assistant") {
-    div.innerHTML = marked.parse(text);
+    // uses window.marked from marked.min.js
+    div.innerHTML = window.marked.parse(text);
   } else {
     div.textContent = text;
   }
@@ -32,13 +34,8 @@ async function askGrady(question) {
   try {
     const resp = await fetch(API_URL, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        question,
-        rag_strength: level
-      })
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ question, rag_strength: level })
     });
 
     if (!resp.ok) {
@@ -47,9 +44,7 @@ async function askGrady(question) {
 
     const data = await resp.json();
 
-    // Remove "Thinking…" message
-    chatWindow.lastChild.remove();
-
+    chatWindow.lastChild.remove(); // remove Thinking…
     addMessage(data.answer, "assistant");
 
   } catch (err) {
@@ -58,13 +53,12 @@ async function askGrady(question) {
   }
 }
 
-// Send button
+// UI wiring unchanged
 sendBtn.addEventListener("click", () => {
   const question = chatInput.value.trim();
   if (question) askGrady(question);
 });
 
-// Enter key
 chatInput.addEventListener("keydown", (e) => {
   if (e.key === "Enter") {
     e.preventDefault();
@@ -72,10 +66,8 @@ chatInput.addEventListener("keydown", (e) => {
   }
 });
 
-// Preset question buttons
 questionButtons.forEach(btn => {
   btn.addEventListener("click", () => {
-    const q = btn.getAttribute("data-q");
-    askGrady(q);
+    askGrady(btn.getAttribute("data-q"));
   });
 });
