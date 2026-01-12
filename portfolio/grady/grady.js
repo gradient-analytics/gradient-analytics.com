@@ -13,29 +13,26 @@ const questionButtons = document.querySelectorAll(".grady-test-questions button"
 function normalizeGradyMarkdown(text) {
   let t = text.trim();
 
-  // Ensure blank line after bold opening sentence
+  // 1. Force newline after first bold sentence
   t = t.replace(
-    /^\*\*(.+?)\*\*(?!\n\n)/,
-    "**$1**\n\n"
+    /^(\*\*[^*]+\*\*)\s+/,
+    "$1\n\n"
   );
 
-  // Ensure Summary label is isolated
+  // 2. Force Summary onto its own line
   t = t.replace(
-    /\*\*Summary:\*\*/g,
-    "\n\n**Summary:**\n"
+    /\s*\*\*Summary:\*\*\s*/g,
+    "\n\n**Summary:**\n\n"
   );
 
-  // Ensure bullets start on new lines
+  // 3. Force each bullet onto its own line
   t = t.replace(
-    /([^\n])\s*([-*]\s+)/g,
-    "$1\n$2"
+    /\s*([-*])\s+/g,
+    "\n$1 "
   );
 
-  // Ensure blank line before bullet lists
-  t = t.replace(
-    /(\*\*Summary:\*\*\n)([-*])/g,
-    "$1\n$2"
-  );
+  // 4. Clean up excessive newlines
+  t = t.replace(/\n{3,}/g, "\n\n");
 
   return t;
 }
